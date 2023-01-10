@@ -1,11 +1,15 @@
 <template>
   <div class="books">
     <h1>This is the Books page</h1>
-    <form @submit.prevent="storeGetBooks.getAuthorBooks">
+    <form @submit.prevent="storeGetBooks.getAuthorKey">
       <p>Author: </p>
       <input type="text" v-model="storeGetBooks.author">
       <button class="search">Search Author</button>
     </form>
+    <h4>Matches:</h4>
+    <div v-for="author in storeGetBooks.authorsMatchEdited" :key="author.key">
+      <span>{{ author.name }}</span> <span> - {{ author.work_count }}</span>
+    </div>
   </div>
 </template>
 
