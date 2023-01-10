@@ -1,15 +1,21 @@
 <template>
-  <div class="about">
+  <div class="books">
     <h1>This is the Books page</h1>
+    <p>These are the new books</p>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+<script>
+export default {
+  name: 'Books',
+  setup () {
+    console.log('books page')
   }
+}
+</script>
+
+<style>
+.books {
+    color: rgb(39, 133, 83)
 }
 </style>
