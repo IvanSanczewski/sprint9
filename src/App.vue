@@ -1,4 +1,5 @@
 <template>
+  <!-- H E A D E R -->
   <header>
     <div class="social">Social Icons</div>
     <h1>THE NATIONAL LIBRARY</h1>
@@ -7,7 +8,13 @@
       <Navbar />
     </div>
   </header>
+  
+  
+  <!-- C O N T E N T -->
   <RouterView />
+
+
+  <!-- F O O T E R -->
   <footer>
     <Footer />
   </footer>

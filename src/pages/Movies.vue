@@ -12,6 +12,6 @@
 
 <style>
 .movies {
-    color: red
+    color: rgb(240, 23, 16)
 }
 </style>
