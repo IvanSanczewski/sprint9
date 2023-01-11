@@ -58,19 +58,15 @@ export const useGetBooksStore = defineStore('getBooks', {
         },
         
         // fetch author's books according to authors key reference 
-        async getBooks() {
+        async getBooks(key) {
             console.log('searhing books')
             console.log(this.author)
             console.log(this.authorsMatchFiltered)
-            console.log(this.authorsMatchFiltered[0])
-            console.log(this.authorsMatchFiltered[0].key)
-            // console.log(this.authorBooks[this.authorBooks.index].key)
-
-
+            console.log(this.key)
             try {
-                const authorBooksData = await axios.get(`${AUTHOR_KEY_URL}${this.authorsMatchFiltered.key}/works.json`)
-                console.log(authorBooksData)
-                this.authorBooks = authorBooksData
+                const authorBooksData = await axios.get(`${AUTHOR_KEY_URL}${key}/works.json`)
+                this.authorBooks = authorBooksData.data
+                console.log(this.authorBooks)
             }
             catch(err) {
                 console.log(err)
