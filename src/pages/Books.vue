@@ -7,8 +7,11 @@
       <button class="search">Search Author</button>
     </form>
     <h4>Matches:</h4>
-    <div v-for="author in storeGetBooks.authorsMatchEdited" :key="author.key">
-      <span>{{ author.name }}</span> <span> - {{ author.work_count }}</span>
+    <!-- <div v-for="author in storeGetBooks.authorsMatchEdited" :key="author.key"> -->
+    <div v-for="author in storeGetBooks.authorsMatchEdited" :key="author.index">
+      <span @click="storeGetBooks.getBooks">{{ author.name }}</span> <span> - {{ author.work_count }}</span>
+      <span class="index"> {{ author.index }}</span>
+      <span class="key"> - {{ author.key }}</span>
     </div>
   </div>
 </template>
@@ -30,5 +33,12 @@ console.log('books page')
 
 .search {
   cursor: pointer
+}
+
+
+
+
+span.key {
+  color: lightblue
 }
 </style>

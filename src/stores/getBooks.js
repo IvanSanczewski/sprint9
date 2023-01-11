@@ -3,17 +3,18 @@ import { defineStore } from 'pinia'
 
 // const AUTHOR_URL = 'http://openlibrary.org/search.json?author='
 const AUTHOR_URL = 'https://openlibrary.org/search/authors.json?q='
-const AUTHOR_KEY_URL = 'https://openlibrary.org/authors'
+const AUTHOR_KEY_URL = 'https://openlibrary.org/authors/'
 
 // displays the modal containing the leasing rules of the library, always available in the nav menu
 export const useGetBooksStore = defineStore('getBooks', {
     state: () => ({
         author: 'Pérez Reverte',
         authorsMatch: [],
-        authorsMatchEdited: []
+        authorsMatchEdited: [],
+        authorBooks: []
     }),
     getters: {
-        authorsMatchEdited: this.authorsMatch.map(item => item.work_count > 0)
+        // authorsMatchEdited: this.authorsMatch.map(item => item.work_count > 0)
     },
     actions: {
         // getAuthorBooks() {
@@ -31,14 +32,25 @@ export const useGetBooksStore = defineStore('getBooks', {
         async getAuthorKey() {
             try {
                 const authorData = await axios.get(`${AUTHOR_URL}${this.author}`)
-                console.log(authorData.data.docs)
                 this.authorsMatch = authorData.data.docs
-                console.log(this.authorsMatch)
-
             }
             catch(err){
                 console.log(err)
             } 
+            // filter names with property work_count = 0
+            this.authorsMatchEdited = this.authorsMatch.filter(author => author.work_count > 0)
+        },
+        
+        async getBooks() {
+            console.log('searhing books');
+            try {
+                const authorBooksData = await axios.get(`${AUTHOR_KEY_URL}${this.authorsMatchEdited[key].key}/works.json`)
+                console.log(authorBooksData)
+                // this.authorBooks = authorBooksData
+            }
+            catch(err) {
+                console.log(err)
+            }
         }
     }
 })
