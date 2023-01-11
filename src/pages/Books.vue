@@ -1,18 +1,36 @@
 <template>
   <div class="books">
     <h1>This is the Books page</h1>
-    <form @submit.prevent="storeGetBooks.getAuthorKey">
+    
+    <!-- T I T L E -->
+     <!--<form class="search" @submit.prevent="storeGetBooks.getTitle">
+      <p>Title: </p>
+      <input type="text" v-model="storeGetBooks.title">
+      <div class="btn-container">
+        <button class="search-btn">Search Title</button>
+      </div>
+    </form>
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    
+    <!-- A U T H O R -->
+    <form class="search" @submit.prevent="storeGetBooks.getAuthorKey">
       <p>Author: </p>
       <input type="text" v-model="storeGetBooks.author">
-      <button class="search">Search Author</button>
+      <div class="btn-container">
+        <button class="search-btn">Search Author</button>
+      </div>
     </form>
+
+    <!-- R E S U L T S -->
     <h4>Matches:</h4>
-    <!-- <div v-for="author in storeGetBooks.authorsMatchEdited" :key="author.key"> -->
-    <div v-for="author in storeGetBooks.authorsMatchEdited" :key="author.index">
-      <span @click="storeGetBooks.getBooks">{{ author.name }}</span> <span> - {{ author.work_count }}</span>
-      <span class="index"> {{ author.index }}</span>
-      <span class="key"> - {{ author.key }}</span>
+    <div v-if="storeGetBooks.searchItem === 'author'" class="match">
+      <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
+        <span @click="storeGetBooks.getBooks">{{ author.name }}</span> <span> - {{ author.work_count }}</span>
+        <span class="index"> {{ author.id }}</span>
+        <span class="key"> - {{ author.key }}</span>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -27,6 +45,21 @@ console.log('books page')
 </script>
 
 <style>
+.search {
+  display: flex;
+  flex-flow: column;
+}
+
+.btn-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.search-btn {
+  margin-top: 1em;
+}
+
 .books {
   color: rgb(39, 133, 83)
 }
