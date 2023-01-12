@@ -25,7 +25,7 @@
     <h4>Matches:</h4>
     <div v-if="storeGetBooks.searchItem === 'author'" class="match">
       <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
-        <span @click="storeGetBooks.getBooks">{{ author.name }}</span> <span> - {{ author.work_count }}</span>
+        <span @click="storeGetBooks.getBooks(author.key)">{{ author.name }}</span> <span> - {{ author.work_count }}</span>
         <span class="index"> {{ author.id }}</span>
         <span class="key"> - {{ author.key }}</span>
       </div>
@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup> 
 import { useGetBooksStore } from '../stores/getBooks'
 
 const storeGetBooks = useGetBooksStore()
