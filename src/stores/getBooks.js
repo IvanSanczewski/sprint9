@@ -1,6 +1,5 @@
-import { looseIndexOf } from '@vue/shared'
-import axios from 'axios'
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 // title endpoints
 const TITLE_URL = 'https://openlibrary.org/search/json?q='
@@ -53,7 +52,7 @@ export const useGetBooksStore = defineStore('getBooks', {
                 item.id = index
                 // this.authorBooks.push(item)
             })
-            // console.log(this.authorBooks)
+
             console.log(this.authorsMatchFiltered)
 
         },
@@ -63,10 +62,9 @@ export const useGetBooksStore = defineStore('getBooks', {
             console.log('searhing books')
             console.log(this.author)
             console.log(this.authorsMatchFiltered)
+            console.log(this.authorsMatchFiltered[0])
             console.log(this.authorsMatchFiltered[0].key)
-            console.log(this.authorBooks[0].key)
-            // console.log(this.authorBooks[id].key)
-            console.log(this.authorBooks[this.authorBooks.index].key)
+            // console.log(this.authorBooks[this.authorBooks.index].key)
 
 
             try {
