@@ -4,6 +4,7 @@
             <RouterLink to="/">Home | </RouterLink>
             <RouterLink to="Books">Books | </RouterLink>
             <RouterLink to="Movies">Movies | </RouterLink>
+            <RouterLink to="User">User | </RouterLink>
             <span @click="storeRules.toggleRules">Rules</span>
         </nav>
         <div v-if="storeRules.displayRules" class="modal">

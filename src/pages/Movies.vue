@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-    console.log('movies page');
+    console.log('movies page')
 </script>
 
 <style>
