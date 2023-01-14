@@ -1,14 +1,42 @@
-@import './base.css';
+/* @import './base.css'; */
 
-#app {
+body {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem; /* 2rem in lg screen */
+  
+  box-sizing: border-box;
 
-  font-weight: normal;
+  font-weight: normal
 }
 
-a,
+header {
+  color: red;
+}
+
+.social-container {
+  padding: 0 25%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 10px
+}
+
+.social-container>div {
+  background-color: aqua;
+  text-align: center
+}
+
+h1 {
+  text-align: center;
+}
+
+.user-actions-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* a,
 .green {
   text-decoration: none;
   color: hsla(160, 100%, 37%, 1);
@@ -32,4 +60,4 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
-}
+} */

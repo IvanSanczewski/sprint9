@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import { isArray } from '@vue/shared'
+
 
 // title endpoints
 const TITLE_URL = 'https://openlibrary.org/search.json?q='

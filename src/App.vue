@@ -1,14 +1,21 @@
 <template>
   <!-- H E A D E R -->
   <header>
-    <div class="social">Social Icons</div>
-    <h1>THE NATIONAL LIBRARY</h1>
+    <div class="social-container">
+      <div class="social-btn">ig</div>
+      <div class="social-btn">fb</div>
+      <div class="social-btn">tw</div>
+      <div class="social-btn">yt</div>
+    </div>
+    <h1>the NATIONAL LIBRARY</h1>
     <div class="user-actions-container">
       <!-- <span class="user-action">LogIn</span> -->
-      <span @click="storeGetUser.getRegisteredUser" class="user-action">LogIn</span>
-      <LogIn /> <!-- ACTIVATE LOGIN COMPONENT -->
-      <span class="user-action"> | SignIn</span>
-      <span v-show="storeGetUser.isLogged" class="user-action"> | LogOut</span>
+      <div>
+        <div v-show="!storeGetUser.isLogged" @click="storeGetUser.getRegisteredUser" class="user-action">LogIn</div>
+        <div v-show="storeGetUser.isLogged" class="user-action"> LogOut</div>
+      </div>
+      <div class="user-action">SignIn</div>
+      <!--<LogIn />  ACTIVATE LOGIN COMPONENT -->
     </div>
     <div class="header">
       <Navbar />
