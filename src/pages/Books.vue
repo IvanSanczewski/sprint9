@@ -2,7 +2,7 @@
   <div class="books">
     <h1>This is the Books page</h1>
     
-    <!-- T I T L E -->
+    <!-- T I T L E 
      <form class="search" @submit.prevent="storeGetBooks.getTitle">
       <p>Title: </p>
       <input type="text" v-model="storeGetBooks.title">
@@ -10,7 +10,7 @@
         <button class="search-btn">Search Title</button>
       </div>
     </form>
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     
     <!-- A U T H O R -->
     <form class="search" @submit.prevent="storeGetBooks.getAuthorKey">
@@ -36,6 +36,8 @@
         <a href="#" @click="storeGetBooks.getBookDetails(book.key)">{{ book.title }}</a>
       </div>
     </div>
+
+    <!-- <img src="https://covers.openlibrary.org/b/isbn/{{ storeGetBooks.editionDetails.isbn }}" /> -->
 
     <!-- B O O K   D E T A I L S -->
     <!-- <h4>Book Details:</h4>

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { isArray } from '@vue/shared'
 
 // title endpoints
 const TITLE_URL = 'https://openlibrary.org/search.json?q='
@@ -17,7 +18,7 @@ const ISBN_KEY_URL = 'https://openlibrary.org/isbn/'
 // const EDITION_KEY_URL = 'https://openlibrary.org'
 
 // cover endpoints
-const COVER_URL = 'https://covers.openlibrary.org/b/OL35697077M/1-L.jpg'
+// const COVER_URL = 'https://covers.openlibrary.org/b/isbn/'
 
 
 // displays the modal containing the leasing rules of the library, always available in the nav menu
@@ -30,7 +31,9 @@ export const useGetBooksStore = defineStore('getBooks', {
         authorsMatchFiltered: [],
         authorBooks: [],
         bookDetails: [],
-        editionDetails: {}
+        editionDetails: {},
+        editionDetailsPages: '',
+        COVER_URL: 'https://covers.openlibrary.org/b/isbn/'
     }),
     getters: {
         // authorsMatchEdited: this.authorsMatch.map(item => item.work_count > 0)
@@ -87,64 +90,99 @@ export const useGetBooksStore = defineStore('getBooks', {
         
         // fetch book's details
         async getBookDetails(bookKey) {
+            this.editionDetails = {}
             console.log('book details')
             console.log(bookKey)
             try {
                 const bookData = await axios.get(`${BOOK_KEY_URL}${bookKey}/editions.json`)
-                this.bookDetails = bookData.data
-                this.getEditionDetails(bookKey)
                 console.log(bookData)
+                console.log(bookData.data)
+                console.log(bookData.data.entries)
+                console.log(bookData.data.entries[0])
+                
+                // because OpenLibrary offers several editions of the same work(book), occasionally even hudreds, for simplicity and ease of use, we take the first given option (bookData.data.entries[0]) as the unique edition, and offer it to the user
+                this.bookDetails = bookData.data.entries[0]
+                console.log(bookData.data.entries[0].languages[0].key)
+                
+                this.editionDetails = {
+                    isbn: Number(bookData.data.entries[0].isbn_13[0]),
+                    title: bookData.data.entries[0].title,
+                    pages: bookData.data.entries[0].number_of_pages,
+                    language: bookData.data.entries[0].languages[0].key,
+                    key: bookData.data.entries[0].key,
+                    cover: bookData.data.entries[0].covers
+                }
+
+                // some books may have several covers given as an array of numbers, if so we take the the first number in the array
+                if (this.editionDetails.cover !== Number && this.editionDetails.cover !== undefined) {
+                    console.log('NOT NUMBER!!') 
+                    this.editionDetails.cover = bookData.data.entries[0].covers[0]
+                } else {
+                    console.log('IS NUMBER!!') 
+                }
+                
+                // some books have no such parameter as 'number_of_pages' (therefore throwing an 'undefined' value), instead they may have the parameter 'pagination', in such case we look for it. Most of these cases are a string, so we convert them into number
+                if (this.editionDetails.pages === undefined) {
+                    console.log('UNDEFINED NUMBER OF PAGES --> PAGINATION!!') 
+                    this.editionDetails.pages = Number(bookData.data.entries[0].pagination)
+                }
             }
             catch(err) {
                 console.log(err)
             }
+            console.log(this.editionDetails.pages)
+
+
         },
         
         // fetch specific edition's details: cover, pages, language
-        async getEditionDetails(bookKey) {
-            console.log('book details')
-            console.log(bookKey)
-            try {
-                const editionData = await axios.get(`${BOOK_KEY_URL}${bookKey}/editions.json`)
+        // async getEditionDetails(bookKey) {
+            // console.log('book details')
+            // console.log(bookKey)
+            // try {
+                // const editionData = await axios.get(`${BOOK_KEY_URL}${bookKey}/editions.json`)
                 // OpenLibrary offers several editions of the same work, occasionally even hudreds, therefore we take the first given option (entries[0]) as the unique edition, and offer it to the user
-                // this.editionDetails = editionData.data.entries[0].isbn_13[0]
-                this.getIsbn(editionData.data.entries[0].isbn_13[0])
-                // {
+                // this.editionDetails = {
                     // isbn: editionData.data.entries[0].isbn_13[0],
                     // title: editionData.data.entries[0].title,
                     // pages: editionData.data.entries[0].number_of_pages,
                     // key: editionData.data.entries[0].key,
                     // cover: editionData.data.entries[0].covers[0]
                 // }
-                console.log(editionData)
-                console.log(this.editionDetails)
-            }
-            catch(err) {
-                console.log(err)
-            }
-        },
+                // this.getIsbn(editionData.data.entries[0].isbn_13[0])
+                // console.log(editionData)
+                // console.log(this.editionDetails)
+            // }
+            // catch(err) {
+                // console.log(err)
+            // }
+        // },
 
         // ISBN
-        async getIsbn(isbn) {
-            console.log('book details')
-            console.log(isbn)
-            try {
-                const editionFullData = await axios.get(`${ISBN_KEY_URL}${isbn}.json`)
-                console.log(editionFullData.data)               
+        
+        
+        // async getIsbn(isbn) {
+        //     console.log('book details')
+        //     console.log(isbn)
+        //     try {
+        //         const editionFullData = await axios.get(`${ISBN_KEY_URL}${isbn}.json`)
+        //         console.log(editionFullData.data)               
+        //         console.log(Number(editionFullData.data.pagination))               
+        //         console.log(editionFullData.data.number_of_pages)               
 
-                this.editionDetails = {
-                    isbn,
-                    title: editionFullData.data.title,
-                    pages: editionFullData.data.pagination,
-                    key: editionFullData.data.key,
-                    cover: editionFullData.data.covers[0]
-                }
-                console.log(this.editionDetails)
-            }
-            catch(err) {
-                console.log(err)
-            }
-        },
+        //         // this.editionDetails = {
+        //         //     isbn: editionFullData.data.isbn,
+        //         //     title: editionFullData.data.title,
+        //         //     pages: editionFullData.data.pagination,
+        //         //     key: editionFullData.data.key,
+        //         //     cover: editionFullData.data.covers[0]
+        //         // }
+        //         console.log(this.editionDetails)
+        //     }
+        //     catch(err) {
+        //         console.log(err)
+        //     }
+        // },
 
     }
 })
