@@ -1,25 +1,20 @@
 <template>
   <!-- H E A D E R -->
   <header>
-    <div class="social-container">
-      <div class="social-btn">ig</div>
-      <div class="social-btn">fb</div>
-      <div class="social-btn">tw</div>
-      <div class="social-btn">yt</div>
-    </div>
-    <h1>the NATIONAL LIBRARY</h1>
-    <div class="user-actions-container">
+    <div class="social-fb">fb</div>
+    <div class="social-tw">tw</div>
+    <div class="social-ytb">ytb</div>
+    <div class="user-log">
       <!-- <span class="user-action">LogIn</span> -->
-      <div>
-        <div v-show="!storeGetUser.isLogged" @click="storeGetUser.getRegisteredUser" class="user-action">LogIn</div>
-        <div v-show="storeGetUser.isLogged" class="user-action"> LogOut</div>
-      </div>
-      <div class="user-action">SignIn</div>
+      <div v-show="!storeGetUser.isLogged" @click="storeGetUser.getRegisteredUser" class="user-action">LogIn</div>
+      <div v-show="storeGetUser.isLogged" class="user-action"> LogOut</div>
       <!--<LogIn />  ACTIVATE LOGIN COMPONENT -->
     </div>
-    <div class="header">
+    <div class="user-sign">SignIn</div>
+    <div class="navbar">
       <Navbar />
     </div>
+    <h1 class="title">the NATIONAL LIBRARY</h1>
   </header>
   
   <!-- C O N T E N T -->
