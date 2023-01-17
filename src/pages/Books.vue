@@ -2,56 +2,124 @@
   <div class="books">
     <h1>This is the Books page</h1>
     
-    <!-- T I T L E 
-     <form class="search" @submit.prevent="storeGetBooks.getTitle">
-      <p>Title: </p>
+    <form @submit.prevent="storeGetBooks.setSearch(storeGetBooks.search)" class="search-form">
+      <label> Choose search term: author / title </label>
+      <select v-model="storeGetBooks.searchItem">
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+      </select>
+      <input v-model="storeGetBooks.search" type="text">
+      <button>SEARCH</button>
+    </form>
+
+
+    <!-- T I T L E   N E W-->
+    <div v-if="storeGetBooks.searchItem === 'title'">
+      <div class="match">
+        <h4>Matching Titles:</h4>
+      <div v-for="work in storeGetBooks.titleWorks" :key="work.key">
+        <a href="#" @click="storeGetBooks.getBookDetails(work.key)">{{ work.title }}</a> <span> - {{ work.author_name }}</span>
+      </div>
+      </div>
+    </div> 
+
+
+
+    <!-- T I T L E -->
+     <!-- <form class="search" @submit.prevent="storeGetBooks.getTitle">
+      <h3>Title: </h3>
       <input type="text" v-model="storeGetBooks.title">
       <div class="btn-container">
         <button class="search-btn">Search Title</button>
       </div>
-    </form>
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    </form> -->
+
+     <!-- R E S U L T S -->
+     <!-- <div v-if="storeGetBooks.searchItem === 'title'" class="match">
+      <h4>Matching Titles:</h4>
+      <div v-for="work in storeGetBooks.titleWorks" :key="work.key">
+        <a href="#" @click="storeGetBooks.getBookDetails(work.key)">{{ work.title }}</a> <span> - {{ work.author_name }}</span>
+      </div>
+    </div> -->
+
+
+    <!-- A U T H O R   N E W -->
+    <div v-if="storeGetBooks.searchItem === 'author'">
+      <div class="match">
+        <h4>Matching Authors:</h4>
+        <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
+          <a href="#" @click="storeGetBooks.getBooks(author.key)">{{ author.name }}</a> <span> - {{ author.work_count }}</span>
+        </div>
+      </div>
+      
+      <div class="match">
+        <div v-if="storeGetBooks.authorBooks.length > 0">
+          <h4>Books:</h4>
+          <div class="books">
+            <div v-for="book in storeGetBooks.authorBooks" :key="book.key">
+              <a href="#" @click="storeGetBooks.getBookDetails(book.key)">{{ book.title }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
     
     <!-- A U T H O R -->
-    <form class="search" @submit.prevent="storeGetBooks.getAuthorKey">
-      <p>Author: </p>
+    <!-- <form class="search" @submit.prevent="storeGetBooks.getAuthorKey">
+      <h3>Author: </h3>
       <input type="text" v-model="storeGetBooks.author">
       <div class="btn-container">
         <button class="search-btn">Search Author</button>
       </div>
-    </form>
+    </form> -->
 
     <!-- R E S U L T S -->
-    <h4>Matching Authors:</h4>
-    <div v-if="storeGetBooks.searchItem === 'author'" class="match">
+    <!-- <div v-if="storeGetBooks.searchItem === 'author'" class="match">
+      <h4>Matching Authors:</h4>
       <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
         <a href="#" @click="storeGetBooks.getBooks(author.key)">{{ author.name }}</a> <span> - {{ author.work_count }}</span>
       </div>
-    </div>
+    </div> -->
 
     <!-- B O O K S -->
-    <h4>Books:</h4>
-    <div class="books">
-      <div v-for="book in storeGetBooks.authorBooks" :key="book.key">
-        <a href="#" @click="storeGetBooks.getBookDetails(book.key)">{{ book.title }}</a>
-      </div>
-    </div>
-
-    <!-- <img src="https://covers.openlibrary.org/b/isbn/{{ storeGetBooks.editionDetails.isbn }}" /> -->
-
-    <!-- B O O K   D E T A I L S -->
-    <!-- <h4>Book Details:</h4>
-    <div class="book-details">
-      <div v-for="edition in storeGetBooks.authorBooks" :key="edition.key">
-        <a href="#" @click="storeGetBooks.getEditionDetails(book.key)">{{ book.title }}</a>
+    <!-- <div v-if="storeGetBooks.authorBooks.length > 0">
+      <h4>Books:</h4>
+      <div class="books">
+        <div v-for="book in storeGetBooks.authorBooks" :key="book.key">
+          <a href="#" @click="storeGetBooks.getBookDetails(book.key)">{{ book.title }}</a>
+        </div>
       </div>
     </div> -->
 
+
+    <!-- <BookDetails :COVER_URL='COVER_URL'/> --> <!-- PASAR POR PROPS-->
+    <!-- B O O K   D E T A I L S -->
+    <div v-if="storeGetBooks.editionDetails.title !== ''" class="book-details">
+      <div class="book-card">
+      <h4>Book Details:</h4>
+        <img v-if="storeGetBooks.editionDetails.isbn !== 'N/A'" :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
+        <div class="book-info">
+          <h3>Title: {{ storeGetBooks.editionDetails.title }}</h3>
+          <p>Pages: {{ storeGetBooks.editionDetails.pages }}</p>
+          <p>Language: {{ storeGetBooks.editionDetails.language }}</p>
+          <p>ISBN: {{ storeGetBooks.editionDetails.isbn }}</p>
+          <p>Available: {{ storeGetBooks.editionDetails.available }}</p>
+          <button v-if="storeGetBooks.editionDetails.available">Borrow this item</button>
+          <button v-else>Reserve this item</button>
+          <button>Check borrow policy</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup> 
 import { useGetBooksStore } from '../stores/getBooks'
+import  BookDetails from '../components/BookDetails.vue'
+
 
 const storeGetBooks = useGetBooksStore()
 // storeGetBooks.getAuthorBooks()
@@ -77,7 +145,7 @@ console.log('books page')
 }
 
 .books {
-  color: rgb(39, 133, 83)
+  color: rgb(3, 10, 7)
 }
 
 .search {
