@@ -20,11 +20,11 @@ const ISBN_KEY_URL = 'https://openlibrary.org/isbn/'
 // const COVER_URL = 'https://covers.openlibrary.org/b/isbn/'
 
 
-// displays the modal containing the leasing rules of the library, always available in the nav menu
+
 export const useGetBooksStore = defineStore('getBooks', {
     state: () => ({
         // SEARCH
-        search: 'Ebano',
+        search: 'In viaggio con Erodoto',
         searchItem: '',
         // TITLE
         // title: 'Ebano',
@@ -33,7 +33,7 @@ export const useGetBooksStore = defineStore('getBooks', {
         // AUTHOR
         // author: 'Gabriel Márquez',
         authorsMatch: [],
-        authorsMatchFiltered: [],
+        // authorsMatchFiltered: [],
         authorBooks: [],
         // bookDetails: [],
         
@@ -55,12 +55,20 @@ export const useGetBooksStore = defineStore('getBooks', {
     }),
     getters: {
         // authorsMatchEdited: this.authorsMatch.map(item => item.work_count > 0)
+        authorsMatchFiltered: (state) => {
+            return state.authorsMatch.filter(author => author.work_count > 0)
+        },
+
+        searchType: (state) => {
+            return state.searchItem
+            console.log('hola');
+        }
+
     },
     actions: {
+        // triggers the appropiate tree of functions that will populate {editionDetails} according to the search type
         setSearch(search) {
-            console.log(this.editionDetails.title)
             this.editionDetails.title = ''
-            console.log(this.editionDetails.title)
             console.log(search);
             if (this.searchItem === 'title') {
                 this.getTitle(search)
@@ -70,11 +78,6 @@ export const useGetBooksStore = defineStore('getBooks', {
                 alert('You must provide a search term')
             }
         },
-        // set search term according to user preference 
-        // setSearchItem (searchItem) {
-        //     console.log(searchItem)
-        //     console.log(this.searchItem)
-        // }, NOT NEEDED
 
         // fetch title data according to user's search
         async getTitle(title) {
@@ -105,13 +108,13 @@ export const useGetBooksStore = defineStore('getBooks', {
             catch(err){
                 console.log(err)
             }
-            // filter names with property work_count = 0
-            this.authorsMatchFiltered = this.authorsMatch.filter(author => author.work_count > 0)
-            this.authorsMatchFiltered.forEach((item, index) => {
-                item.id = index
-                // this.authorBooks.push(item)
-            })
-            console.log(this.authorsMatchFiltered)
+            // // filter names with property work_count = 0
+            // this.authorsMatchFiltered = this.authorsMatch.filter(author => author.work_count > 0)
+            // this.authorsMatchFiltered.forEach((item, index) => {
+            //     item.id = index
+            //     // this.authorBooks.push(item)
+            // })
+            // console.log(this.authorsMatchFiltered)
 
         },
 
@@ -200,7 +203,7 @@ export const useGetBooksStore = defineStore('getBooks', {
             catch(err) {
                 console.log(err)
             }
-        },
+        }
     }
 })
 

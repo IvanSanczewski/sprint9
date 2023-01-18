@@ -1,9 +1,11 @@
 <template>
   <div class="books">
     <h1>This is the Books page</h1>
-    
     <form @submit.prevent="storeGetBooks.setSearch(storeGetBooks.search)" class="search-form">
       <label> Choose search term: author / title </label>
+      <!-- <select 
+        v-model="searchType"
+        v-model:searchItem="searchItem"> -->
       <select v-model="storeGetBooks.searchItem">
         <option value="title">Title</option>
         <option value="author">Author</option>
@@ -14,6 +16,7 @@
 
 
     <!-- T I T L E   N E W-->
+    <!-- <div v-if="searchType === 'title'"> -->
     <div v-if="storeGetBooks.searchItem === 'title'">
       <div class="match">
         <h4>Matching Titles:</h4>
@@ -44,6 +47,7 @@
 
 
     <!-- A U T H O R   N E W -->
+    <!-- <div v-if="searchType === 'author'"> -->
     <div v-if="storeGetBooks.searchItem === 'author'">
       <div class="match">
         <h4>Matching Authors:</h4>
@@ -96,8 +100,12 @@
 
 
     <!-- <BookDetails :COVER_URL='COVER_URL'/> --> <!-- PASAR POR PROPS-->
-    <!-- B O O K   D E T A I L S -->
-    <div v-if="storeGetBooks.editionDetails.title !== ''" class="book-details">
+    <!-- B O O K   D E T A I L S --> <!-- LLEVAR A COMPONENTE-->
+
+    <BookDetails 
+      v-if="storeGetBooks.editionDetails.title !== ''" />
+
+    <!-- <div v-if="storeGetBooks.editionDetails.title !== ''" class="book-details">
       <div class="book-card">
       <h4>Book Details:</h4>
         <img v-if="storeGetBooks.editionDetails.isbn !== 'N/A'" :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
@@ -112,7 +120,7 @@
           <button>Check borrow policy</button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -120,9 +128,26 @@
 import { useGetBooksStore } from '../stores/getBooks'
 import  BookDetails from '../components/BookDetails.vue'
 
+// import { ref, watch } from 'vue'
+// const searchType = ref('')
+
+// watch (() => searchType, (newValue, oldValue) => {
+//   console.log('watch triggered')
+//   console.log('newValue', newValue)
+//   console.log('oldValue', oldValue)
+// })
+
 
 const storeGetBooks = useGetBooksStore()
 // storeGetBooks.getAuthorBooks()
+
+storeGetBooks.search = ''
+storeGetBooks.searchItem = ''
+storeGetBooks.editionDetails.title = ''
+storeGetBooks.titleWorks = []
+storeGetBooks.authorsMatch = []
+// storeGetBooks.authorsMatchFiltered = []
+storeGetBooks.authorBooks = []
 
 console.log('books page')
   
@@ -149,11 +174,8 @@ console.log('books page')
 }
 
 .search {
-  cursor: pointer
+  cursor: pointer;
 }
-
-
-
 
 span.key {
   color: lightblue
