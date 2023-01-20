@@ -1,9 +1,8 @@
 <template>
-    <h4>Book Details:</h4>
     <div class="book-card">
+    <h4>Book Details:</h4>
         <img :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
         <div class="book-info">
-
             <h3>Title: {{ storeGetBooks.editionDetails.title }}</h3>
             <p>Pages: {{ storeGetBooks.editionDetails.pages }}</p>
             <p>Language: {{ storeGetBooks.editionDetails.language }}</p>
@@ -19,13 +18,19 @@
 </template>
 
 <script setup>
-// import Books from '../pages/Books.vue';
 import { useGetBooksStore } from '../stores/getBooks'
+// import Books from '../pages/Books.vue'
+
 
 const storeGetBooks = useGetBooksStore()
 
+
+// TOGGLE BETWEEN DISPLAYBOOK SO IT IS SHOWED ONLY WHEN TRUE
+// const toggleDisplayBook = ((storeGetBooks) => {
+//     console.log('toggle active')
+//     return storeGetBooks.displayBook = true
+//     //   storeGetBooks.displayBook = !storeGetBooks.displayBook
+// }) 
+// toggleDisplayBook()
+
 </script>
-
-<style>
-
-</style>

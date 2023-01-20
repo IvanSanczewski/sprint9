@@ -1,5 +1,7 @@
 /* @import './base.css'; */
 @import './header.css';
+@import './footer.css';
+@import './books.css';
 
 body {
   max-width: 1280px;
@@ -7,8 +9,16 @@ body {
   padding: 0rem; /* 2rem in lg screen */
   
   box-sizing: border-box;
+  
+  font-weight: normal;
+  
+  color: rgb(10, 11, 10);
+  background-color: rgb(99, 129, 188); 
+}
 
-  font-weight: normal
+main {
+  max-width: 1140px;
+  margin: 0 auto
 }
 
 /* a,

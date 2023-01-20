@@ -1,5 +1,7 @@
 <template>
-    <div v-show="displayRules" class="modal">
+    <div class="modal">
+        <button @click="storeRules.toggleRules">X</button>
+
         <h2>LEASING RULES</h2>
         <p>Lorem ipsum dolor sit amet consectetur</p>
         <h4>BOOKS</h4>
@@ -9,15 +11,17 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Rules'
-}
+<script setup>
+import { useRulesStore } from '../stores/rules'
+
+const storeRules = useRulesStore()
+
+console.log('Rules component accessed')
 </script>
 
 <style>
 .modal {
-    color: darkgreen;
+    color: rgb(0, 30, 0);
     background: #999;
 
 }

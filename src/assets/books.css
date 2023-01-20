@@ -1,0 +1,17 @@
+.book-card {
+    display: flex;
+    flex-direction: column;
+    color: rgb(8, 5, 5);
+    background-color: aquamarine;
+    column-gap: 2em;
+}
+
+.book-card>img {
+    width: 450px;
+    padding: 1em;
+    border-radius: 1.8em;
+}
+
+.book-info {
+    padding-left: 2em;
+}

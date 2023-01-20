@@ -1,48 +1,18 @@
-*, a {
-    text-decoration: none;
-
-}
-
 header {
-    color: rgb(79, 165, 79);
-    background-color: rgb(202, 202, 249);
-    display: grid;
-    grid-template-columns: 1.5fr repeat(5, 1fr) 1.5fr;
-    grid-template-rows: repeat (3, 1fr);
-    grid-template-areas:
-        "log . fb tw ytb . sign"
-        "nav nav nav nav nav nav nav"
-        "title title title title title title title"
-    
+    display: flex;
+    flex-flow: column wrap;
+
+    color: rgb(79, 113, 165);
+    background-color:salmon;
 }
   
 /* I C O N S */
-.social-fb {
-    margin-top: .5rem;
-    grid-area: fb;
-}
-
-.social-tw {
-    margin-top: .5rem;
-    grid-area: tw;
-}
-
-.social-ytb {
-    margin-top: .5rem;
-    grid-area: ytb;
-}
-
 /* U S E R */
 .user-log {
-    margin-top: .5rem;
-    
-    grid-area: log;
     text-align: center;
 }
 
 .user-sign {
-    margin-top: .5rem;
-    grid-area: sign;
     text-align: center;
 }
 

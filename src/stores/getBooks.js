@@ -24,7 +24,7 @@ const ISBN_KEY_URL = 'https://openlibrary.org/isbn/'
 export const useGetBooksStore = defineStore('getBooks', {
     state: () => ({
         // SEARCH
-        search: 'In viaggio con Erodoto',
+        search: '',
         searchItem: '',
         // TITLE
         // title: 'Ebano',
@@ -47,7 +47,7 @@ export const useGetBooksStore = defineStore('getBooks', {
             key:'',
             available:''
         },
-        showBook: false,
+        // displayBook: false,
         lastSearch: null,
 
         // COVER
@@ -60,8 +60,8 @@ export const useGetBooksStore = defineStore('getBooks', {
         },
 
         searchType: (state) => {
+            state.searchItem
             return state.searchItem
-            console.log('hola');
         }
 
     },
@@ -82,6 +82,7 @@ export const useGetBooksStore = defineStore('getBooks', {
         // fetch title data according to user's search
         async getTitle(title) {
             // this.searchItem = 'title'
+            this.search = ''
             console.log(title);
             try {
                 // const titleData = await axios.get(`${TITLE_URL}${this.title}`)
