@@ -1,0 +1,26 @@
+{
+    "borrowedBooks": [
+        { 
+            "title": "In Viaggio con Erodoto",
+            "isbn": "8807819465",
+            "key": "/books/OL37051713M",
+            "available": "false",
+            "borrow" : {
+                "userMail": "perico@palote.es",
+                "borrowData":"",
+                "returnData":""
+            }
+        },
+        { 
+            "title": "Walden",
+            "isbn": "9798656553049",
+            "key": "/books/OL42432250M",
+            "available": "false",
+            "borrow" : {
+                "user": "22@22.de",
+                "borrowData":"",
+                "returnData":""
+            }
+        }         
+    ]
+}

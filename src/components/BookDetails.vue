@@ -7,11 +7,13 @@
             <p>Pages: {{ storeGetBooks.editionDetails.pages }}</p>
             <p>Language: {{ storeGetBooks.editionDetails.language }}</p>
             <p>ISBN: {{ storeGetBooks.editionDetails.isbn }}</p>
-            <p>Available: {{ storeGetBooks.editionDetails.available }}</p>
+            <!-- <p>Available: {{ storeGetBooks.editionDetails.available }}</p> -->
             <button v-if="storeGetBooks.editionDetails.available">Borrow this item</button>
             <button v-else>Reserve this item</button>
-            <button>Check borrow policy</button>
-            <button>Make another search</button>
+            <div class="extras">
+                <button>Check borrow policy</button>
+                <button>Make another search</button>
+            </div>
         </div>  
     </div> 
   

@@ -2,7 +2,6 @@
     <div class="login">
         
         <div v-if="storeGetUser.displayLogIn" class="login-signin-modal">
-            <button @click="storeGetUser.toggleDisplayLogIn">x</button>
             <p class="close" @click="storeGetUser.toggleDisplayLogIn" style="cursor: pointer">
                 <font-awesome-icon icon="xmark" />
             </p>
@@ -10,7 +9,7 @@
                 <img src="@/assets/img/NATLIB_LOGO.png" alt="The NAT-LIB logo" style="width: 70px">
             </div>
             <!-- <form class="user-login-form" @submit.prevent="storeGetUser.checkUser"> -->
-            <form class="user-login-form" @submit.prevent="storeGetUser.logInUser(storeGetUser.existingEmail, storeGetUser.existingPassword)">
+            <form class="user-login-form" @submit.prevent="storeGetUser.validateLogInUser">
                 <!-- <p>Enter your email</p> -->
                 <input type="text" v-model="storeGetUser.existingEmail">
                 <!-- <span v-show="emailErr" :class="{ emailErr }"> {{ emailErrMsg }}</span> -->

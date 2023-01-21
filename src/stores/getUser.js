@@ -12,6 +12,7 @@ export const useGetUserStore = defineStore('getUser', {
         // display components
         displaySignIn: false,
         displayLogIn: false,
+        displayUsersList: false,
         // isLogged: false, // PASSED AS A GETTER
 
         //user
@@ -22,13 +23,13 @@ export const useGetUserStore = defineStore('getUser', {
             email: '',
             password: '',
         },
-        userExists:{
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            isAdmin: null
-        },
+        // userExists:{
+        //     firstName: '',
+        //     lastName: '',
+        //     email: '',
+        //     password: '',
+        //     isAdmin: null
+        // },
         user:{
             firstName: '',
             lastName: '',
@@ -79,7 +80,10 @@ export const useGetUserStore = defineStore('getUser', {
 
             console.log('entered LOGIN component')
 
-            this.user.firstName = 'Ivan'
+            // this.user.firstName = 'Gabrielė'
+        },
+        toggleDisplayUsersList() {
+            this.displayUsersList = !this.displayUsersList
         },
         logOutUser() {
             this.user.firstName = ''
@@ -91,7 +95,6 @@ export const useGetUserStore = defineStore('getUser', {
 
         // C R U D  (create)
         validateSignInUser() {
-            // let firstName, lastName, email, password
 
             //first name validation
             if (this.signInUser.firstName.trim() === '' || this.signInUser.firstName.trim() === null) {
@@ -138,18 +141,15 @@ export const useGetUserStore = defineStore('getUser', {
                     password: this.signInUser.password.trim(),
                     isAdmin: false
                 }
-
-                this.compareUser(this.user)
-
-                // this.addUser(this.user)
+                this.checkUser(this.user.email)                 
             }
         },
         
-        compareUser(user) {
-            if (this.users.some(item => item.email === user.email )) {
+        checkUser(email) {
+            if (this.users.some(item => item.email === email)) {
                 console.log('This email already exists in the users DB')
             } else {
-                this.addUser(this.user)
+                this.addUser(user)
             }
         },
 
@@ -204,7 +204,85 @@ export const useGetUserStore = defineStore('getUser', {
         },
 
         // L O G   I N
-        // async logInUser(email, password) {
+        validateLogInUser() {
+            // email validation 
+            if (this.existingEmail.trim() === '' || this.existingEmail.trim() === null) {
+                this.emptyEmailErr = true
+                this.emailErr = false
+            } else if (!this.mailRegEx.test(this.existingEmail.trim())) {
+                this.emailErr = true
+                this.emptyEmailErr = false
+            } else {
+                // this.user.email = this.signInUser.email.trim()
+                this.emailErr = false
+                this.emptyEmailErr = false
+            }
+
+            // password validation
+            if (this.existingPassword.trim() === '' || this.existingPassword.trim() === null) {
+                this.passwordErr = true
+            } else {
+                // this.user.password = this.signInUser.password.trim()
+                this.passwordErr = false
+            }
+
+            if (!this.emailErr && !this.emptyEmailErr && !this.passwordErr) {
+                console.log(this.existingEmail, this.existingPassword)
+                if (this.users.some(item => item.email === this.existingEmail)) {
+                    let checkIsUser = this.users.find(item => item.email.includes(this.existingEmail))
+                    if (this.existingPassword === checkIsUser.password ) {
+                        this.user = checkIsUser
+                    } else {
+                        alert('Invalid email & password combination')
+                    }
+                    //(checkIsUser.password === this.existingPassword) ? this.user = checkIsUser : alert('Invalid email & password combination')
+                } else {
+                    alert('This user does not exists. Please sign in first.')
+                }
+
+
+
+            }
+        },
+    
+        
+
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // async logInUser(email, password) {
         //     console.log(email, password)
         //     // MAKE ERROR NULL IF NEEDED
         //     try {
@@ -216,36 +294,3 @@ export const useGetUserStore = defineStore('getUser', {
         //         console.log('user and password combination is wrong');
         //     }
         // },
-
-        checkUser() {
-            let email
-            if (this.$refs.existingEmail.value.trim() === '' || this.$refs.existingEmail.value.trim() === null) {
-                this.emptyEmailErr = true
-                this.emailErr = false
-                console.log('mail vacío')
-            } else if (!this.mailRegEx.test(this.$refs.existingEmail.value.trim())) {
-                this.emailErr = true
-                this.emptyEmailErr = false
-                console.log('mail erróneo')
-            } else {
-                email = this.$refs.existingEmail.value.trim()
-                console.log(email)
-                console.log('mail correcto')
-                this.emailErr = false
-                this.emptyEmailErr = false
-                this.$store.commit('loginUser', email)
-            }
-        },
-
-        checkPassword() {
-            let password = this.$refs.existingPassword.value.trim()
-            if (password === '' || password === null) {
-                this.passwordErr = true
-            } else {
-                this.$store.commit('loginPassword', password)
-                this.passwordErr = false
-            }
-        },
-
-    }
-})

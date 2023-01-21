@@ -48,18 +48,27 @@
 
     <!-- <BookDetails :COVER_URL='COVER_URL'/> --> <!-- PASAR POR PROPS-->
   <BookDetails 
-    v-if="storeGetBooks.editionDetails.title !== ''" />
+    v-if="storeGetBooks.editionDetails.title !== '' && storeGetUser.user.firstName !== ''" />
     <!-- v-if="storeGetBooks.displayBook" /> -->
-
+  <!-- <div v-else class="missing-user">
+    You need to be logged in order to see the book datails and borrow it. Please log or sign.
+  </div> -->
   <!-- </div> -->
 </template>
 
 <script setup> 
 import { useGetBooksStore } from '../stores/getBooks'
+import { useGetUserStore } from '../stores/getUser'
+import { useGetBookAvailability } from '../stores/getBookAvailability'
 import  BookDetails from '../components/BookDetails.vue'
 
 const storeGetBooks = useGetBooksStore()
-// storeGetBooks.getAuthorBooks()
+const storeGetUser = useGetUserStore()
+const storeGetBookAvailability = useGetBookAvailability()
+//TODO: storeGetBooks.getAuthorBooks()
+
+//TODO: getBorrowedBooks()
+storeGetBookAvailability.getBorrowedBooks()
 
 
 storeGetBooks.search = ''
@@ -71,7 +80,16 @@ storeGetBooks.authorsMatch = []
 storeGetBooks.authorBooks = []
 
 console.log('books page')
-  
+
+
+
+//TODO: MAKE IT A CALLBACK FUNCTION
+
+// if (storeGetBooks.editionDetails.title !== '' && storeGetUser.user.firstName === '') {
+//   console.log('BOOK FOUND - USER NOT FOUND')
+//   alert('You need to log to check book details')
+// }
+
 </script>
 
 <style>

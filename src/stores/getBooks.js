@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+// IMPORT & USE OF store/getUsers.js WILL FAIL, THEREFORE I CANNTO USE ITS STATE -> COMMENT GETTER watchUserEmail & IF STATEMENTES & ALERTS IN getBookDetails ACTION
+// import useGetUserStore from '../stores/getUser'
+// const storeGetUser = useGetUserStore()
+
 // title endpoints
 const TITLE_URL = 'https://openlibrary.org/search.json?q='
 // const TITLE_URL = 'https://openlibrary.org/search/json?title='
@@ -63,6 +67,13 @@ export const useGetBooksStore = defineStore('getBooks', {
             state.searchItem
             return state.searchItem
         }
+
+        // READ >>4
+        // watchUserEmail: (state) => {
+        //     return storeGetUser.user.userEmail
+        //     console.log(userEmail)
+        //     console.log(state.search)
+        // }
 
     },
     actions: {
@@ -154,28 +165,33 @@ export const useGetBooksStore = defineStore('getBooks', {
                 // if (bookData.data.entries[0].isbn_10 !== null) {
                 if (bookData.data.entries[0].isbn_10 !== undefined) {
                     console.log('THERE IS ISBN 10')
+                    // if ( this.watchUserEmail !== undefined) {// READ >>4
                     this.editionDetails = {
                         isbn: bookData.data.entries[0].isbn_10[0],
                         // isbn: (Number(bookData.data.entries[0].isbn_10[0]).length === 9) ? ('0' + Number(bookData.data.entries[0].isbn_10[0]).toString) : Number(bookData.data.entries[0].isbn_10[0]),
-                        
+                    
                         title: bookData.data.entries[0].title,
-                        
+                    
                         // some books have no such parameter as 'number_of_pages' (therefore throwing an 'undefined' value), instead they may have the parameter 'pagination', in such case we look for it. Most of these cases are a string, so we convert them into number
                         pages: (bookData.data.entries[0].number_of_pages !== undefined) ? Number(bookData.data.entries[0].number_of_pages) : Number(bookData.data.entries[0].pagination),
                         // pages: bookData.data.entries[0].number_of_pages,
-                        
+                    
                         // language: bookData.data.entries[0].languages[0].key.slice(11,14),
                         // language is not always available, in such cases we assign 'N/A' string to it
                         language: (bookData.data.entries[0].languages !== undefined) ? bookData.data.entries[0].languages[0].key.slice(11,14) : 'N/A',
-                        
+                    
                         key: bookData.data.entries[0].key,
-                        
+                    
                         available: true,
-                        
+                    
                         // cover: bookData.data.entries[0].covers,
                     }
+                    // } else {// READ >>4
+                        // alert('You need to log to check book details')
+                    // }
                 } else {
                     console.log('LETS TRY WITH ISBN 13…')
+                    // if ( this.watchUserEmail !== undefined) {// READ >>4
                     this.editionDetails = {
                         // isbn13: bookData.data.entries[0].isbn_13[0],
                         // since we're not sure ISBN_13 exists for every edition that have no ISBN_10, we assign string 'N/A' to those were we cannot collect this parameter. Later we'll use the lack of isbn to display a 'Cover Not Available' image
@@ -197,7 +213,10 @@ export const useGetBooksStore = defineStore('getBooks', {
                         available: true,
                         
                         // cover: bookData.data.entries[0].covers,
-                    }
+                        }
+                    // } else {// READ >>4
+                        // alert('You need to log to check book details')
+                    // }    
                 }
                 console.log(this.editionDetails)
             }
