@@ -5,9 +5,16 @@
             <button class="user-btn-panel">Edit account</button>
             <button class="user-btn-panel">Delete account</button>
         </div>
-        <div class="user-borrow"> // COMPLETE LIST OF READ AND READING BOOKS
-            <div class="read">LIST OF RETURNED BOOKS</div>
-            <div class="reading">LIST OF ACTUAL BORROWED BOOKS</div>
+        <div class="user-borrow">
+            <!-- TODO: IMPLEMENT RETURNED BOOKS -->
+            <!-- <div class="read">LIST OF RETURNED BOOKS</div> -->
+            <h3 class="reading">LIST OF BORROWED DOCUMENTS</h3>
+                // TODO: DETERMINE ARRAY TO ITERATE
+                <!-- <div v-for="book in storeGetUser.user.borrow" :key="book.title" class="borrowed-docs">
+                    <span> {{ book.title }} - </span> -->
+                    <!-- <span> {{ book.borrow.borrowData }} - </span> -->
+                    <!-- <span> {{ book.borrow.returnData }} - </span> -->
+                <!-- </div> -->
         </div>
         <div v-show="storeGetUser.user.isAdmin">
         <button @click="storeGetUser.toggleDisplayUsersList">Get Users</button>

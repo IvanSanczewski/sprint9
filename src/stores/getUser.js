@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { projectFirestore } from '../firebase/config'
 // import { projectAuth } from '../firebase/config'
 
-// import axios from 'axios'
+
 
 // users endpoints
 const USERS_FIREBASE = ''
@@ -17,26 +17,32 @@ export const useGetUserStore = defineStore('getUser', {
 
         //user
         users:[],
+        user:{
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            isAdmin: null,
+            borrow: {
+                doc1: {
+                    title: '',
+                    isbn:'',
+                    borrowDate: {},
+                    returnDate:  {},
+                    extendedBorrow: 0
+                }
+            }
+        },
         signInUser:{
             firstName: '',
             lastName: '',
             email: '',
             password: '',
         },
-        // userExists:{
-        //     firstName: '',
-        //     lastName: '',
-        //     email: '',
-        //     password: '',
-        //     isAdmin: null
-        // },
-        user:{
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            isAdmin: null
-        },
+
+        // LogIn checks
+        existingEmail: '',
+        existingPassword:'',
 
         // validation errors
         firstNameErr: false,
@@ -54,11 +60,9 @@ export const useGetUserStore = defineStore('getUser', {
 
         passwordErr: false,
         passwordErrMsg:'Your password must be 8 to 20 characters and contain at least one lowercase, one uppercase, one number and one special character',
-        passwordType: 'password',
+        passwordType: 'password'
 
-        // LogIn checks
-        existingEmail: '',
-        existingPassword:''
+       
 
 
     }),
@@ -80,7 +84,6 @@ export const useGetUserStore = defineStore('getUser', {
 
             console.log('entered LOGIN component')
 
-            // this.user.firstName = 'Gabrielė'
         },
         toggleDisplayUsersList() {
             this.displayUsersList = !this.displayUsersList
@@ -91,6 +94,9 @@ export const useGetUserStore = defineStore('getUser', {
             this.user.email = ''
             this.user.password = ''
             this.user.isAdmin = null
+            this.existingEmail = ''
+            this.existingPassword = ''
+            this.displayLogIn = false
         },
 
         // C R U D  (create)
@@ -139,7 +145,34 @@ export const useGetUserStore = defineStore('getUser', {
                     lastName: this.signInUser.lastName.trim(),
                     email: this.signInUser.email.trim(),
                     password: this.signInUser.password.trim(),
-                    isAdmin: false
+                    isAdmin: true,
+                    borrow: {
+                        doc1: {
+                            title:'',
+                            isbn:'',
+                            work:'',
+                            borrowDate:'',
+                            returnDate:'',
+                            extendedBorrow: 0
+                        },
+                        doc2: {
+                            title:'',
+                            isbn:'',
+                            work:'',
+                            borrowDate:'',
+                            returnDate:'',
+                            extendedBorrow: 0
+                        },
+                        doc3: {
+                            title:'',
+                            isbn:'',
+                            work:'',
+                            borrowDate:'',
+                            returnDate:'',
+                            extendedBorrow: 0 
+                        }
+                    }
+
                 }
                 this.checkUser(this.user.email)                 
             }
@@ -149,19 +182,28 @@ export const useGetUserStore = defineStore('getUser', {
             if (this.users.some(item => item.email === email)) {
                 console.log('This email already exists in the users DB')
             } else {
-                this.addUser(user)
+                this.addUser(this.user)
+                this.displaySignIn = false
+                //TODO: PUSH ROUTE USER
             }
         },
 
         async addUser(user) {
+            console.log(user)
             await projectFirestore.collection('users').add(user)
             this.users.push(user)
+            this.signInUser = {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+            }
         },
 
         // C R U D  (read)
         // fetch user     FROM LOGIN
-        // tool for admins so they can ban and delete users as well as extend extend the borrow period for documents
-        // ADD INDIVIDUAL SEARCH
+        // tool for admins so they can ban and delete users (AS WELL AS EXTEND THE BORROW PERIOD FOR DOCUMENTS)
+        //TODO: ADD INDIVIDUAL SEARCH
         async getRegisteredUsers() {
             // this.isLogged = !this.isLogged // PASAR AL FINAL DEL TRY
             try {
@@ -190,6 +232,21 @@ export const useGetUserStore = defineStore('getUser', {
             
         },
 
+        // TODO: IMPLEMENT BORROWED BOOK IN USER DB & USER IN BOOK DB
+        borrowToUser(user, title, isbn) {
+            if (user.borrow.doc1.title === '') {
+                let initialDate = new Date
+                user.borrow.doc1 = {
+                    title: '',
+                    isbn: isbn,
+                    borrowDate: new Date,
+                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                    extendedBorrow: 0
+                }
+            }
+            console.log(user)
+            console.log(isbn)
+        },
         // extendDocumentBorrow(xxxx) {
 
         // },
@@ -227,21 +284,18 @@ export const useGetUserStore = defineStore('getUser', {
             }
 
             if (!this.emailErr && !this.emptyEmailErr && !this.passwordErr) {
-                console.log(this.existingEmail, this.existingPassword)
                 if (this.users.some(item => item.email === this.existingEmail)) {
                     let checkIsUser = this.users.find(item => item.email.includes(this.existingEmail))
                     if (this.existingPassword === checkIsUser.password ) {
                         this.user = checkIsUser
+                        this.displayLogIn = false
+                        //TODO: PUSH ROUTE USER
                     } else {
                         alert('Invalid email & password combination')
                     }
-                    //(checkIsUser.password === this.existingPassword) ? this.user = checkIsUser : alert('Invalid email & password combination')
                 } else {
                     alert('This user does not exists. Please sign in first.')
                 }
-
-
-
             }
         },
     
@@ -249,7 +303,9 @@ export const useGetUserStore = defineStore('getUser', {
 
     }
 })
-
+let borrowDate = new Date
+let initialDate = new Date // this date is used to calculate the 4 weeks borrow period, but when setDate method is applied, it sets the new date also to initialDate, therefore we do not use borrowDate to make the calculation
+let returnDate = new Date(initialDate.setDate(initialDate.getDate() + 28))
 
 
 

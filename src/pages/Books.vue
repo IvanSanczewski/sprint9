@@ -50,6 +50,7 @@
   <BookDetails 
     v-if="storeGetBooks.editionDetails.title !== '' && storeGetUser.user.firstName !== ''" />
     <!-- v-if="storeGetBooks.displayBook" /> -->
+  //FIXME: 
   <!-- <div v-else class="missing-user">
     You need to be logged in order to see the book datails and borrow it. Please log or sign.
   </div> -->

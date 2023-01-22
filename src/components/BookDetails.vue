@@ -9,7 +9,11 @@
             <p>ISBN: {{ storeGetBooks.editionDetails.isbn }}</p>
             <!-- <p>Available: {{ storeGetBooks.editionDetails.available }}</p> -->
 
-            <button v-if="storeGetBookAvailability.bookIsAvailable" @click="storeGetBookAvailability.borrowToUser(storeGetUser.user.email, storeGetBooks.editionDetails)">Borrow this item</button>
+            <button v-if="storeGetBookAvailability.bookIsAvailable" 
+                @click="storeGetBookAvailability.linkToUser(storeGetUser.user.email, storeGetBooks.editionDetails);
+                    storeGetUser.borrowToUser(storeGetUser.user, storeGetBooks.editionDetails.title, storeGetBooks.editionDetails.isbn)">
+                Borrow this item
+            </button>
             <button v-else>Reserve this item</button>
             <div class="extras">
                 <button>Check borrow policy</button>

@@ -59,4 +59,3 @@ storeGetUser.getRegisteredUsers()
 
 
 </script>
-

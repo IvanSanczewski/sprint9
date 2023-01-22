@@ -96,7 +96,6 @@ export const useGetBooksStore = defineStore('getBooks', {
             this.search = ''
             console.log(title);
             try {
-                // const titleData = await axios.get(`${TITLE_URL}${this.title}`)
                 const titleData = await axios.get(`${TITLE_URL}${title}`)
                 console.log(titleData.data.docs)
                 this.titleWorks = titleData.data.docs

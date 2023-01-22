@@ -1,26 +1,112 @@
 {
-    "borrowedBooks": [
-        { 
-            "title": "In Viaggio con Erodoto",
-            "isbn": "8807819465",
-            "key": "/books/OL37051713M",
-            "available": "false",
-            "borrow" : {
-                "userMail": "perico@palote.es",
-                "borrowData":"",
-                "returnData":""
-            }
-        },
-        { 
-            "title": "Walden",
-            "isbn": "9798656553049",
-            "key": "/books/OL42432250M",
-            "available": "false",
-            "borrow" : {
-                "user": "22@22.de",
-                "borrowData":"",
-                "returnData":""
-            }
-        }         
-    ]
+  "borrowedBooks": [
+    {
+      "id": "1",
+      "title": "In Viaggio con Erodoto",
+      "isbn": "8807819465",
+      "key": "/books/OL37051713M",
+      "available": "false",
+      "borrow": {
+        "userMail": "perico@palote.es",
+        "borrowData": "",
+        "returnData": ""
+      }
+    },
+    {
+      "id": "2",
+      "title": "Walden",
+      "isbn": "9798656553049",
+      "key": "/books/OL42432250M",
+      "available": "false",
+      "borrow": {
+        "user": "22@22.de",
+        "borrowData": "",
+        "returnData": ""
+      }
+    },
+    {
+      "isbn": "8433925458",
+      "title": "Ebano",
+      "pages": null,
+      "language": "spa",
+      "key": "/books/OL13236300M",
+      "available": false,
+      "borrow": {
+        "user": "22@22.de",
+        "borrowDate": "2023-01-22T15:32:33.078Z",
+        "returnDate": "2023-02-19T15:32:33.078Z"
+      },
+      "id": "upH0Zm1"
+    },
+    {
+      "isbn": 9788807018206,
+      "title": "La cotogna di Istanbul",
+      "pages": 184,
+      "language": "ita",
+      "key": "/books/OL30494265M",
+      "available": false,
+      "borrow": {
+        "user": "22@22.de",
+        "borrowDate": "2023-01-22T16:05:14.988Z",
+        "returnDate": "2023-02-19T16:05:14.988Z"
+      },
+      "id": "fHWmJk-"
+    },
+    {
+      "isbn": "8807880458",
+      "title": "È Oriente",
+      "pages": 198,
+      "language": "ita",
+      "key": "/books/OL27220787M",
+      "available": false,
+      "borrow": {
+        "user": "22@22.de",
+        "borrowDate": "2023-01-22T16:50:52.072Z",
+        "returnDate": "2023-02-19T16:50:52.072Z"
+      },
+      "id": "jM64mkg"
+    },
+    {
+      "isbn": "0802151590",
+      "title": "Cosmos and Pornografia",
+      "pages": 362,
+      "language": "eng",
+      "key": "/books/OL7875284M",
+      "available": false,
+      "borrow": {
+        "user": "pinia@pinia.es",
+        "borrowDate": "2023-01-22T20:29:25.551Z",
+        "returnDate": "2023-02-19T20:29:25.552Z"
+      },
+      "id": "0c0gYDQ"
+    },
+    {
+      "isbn": 9798353580720,
+      "title": "Heart of a Dog",
+      "pages": 78,
+      "language": "eng",
+      "key": "/books/OL46426795M",
+      "available": false,
+      "borrow": {
+        "user": "aaa@aaa.aa",
+        "borrowDate": "2023-01-22T20:50:01.893Z",
+        "returnDate": "2023-02-19T20:50:01.893Z"
+      },
+      "id": "tADiDQA"
+    },
+    {
+      "isbn": "5700300222",
+      "title": "Мастер и Маргарита",
+      "pages": 480,
+      "language": "rus",
+      "key": "/books/OL39822642M",
+      "available": false,
+      "borrow": {
+        "user": "lib@natlib.lt",
+        "borrowDate": "2023-01-22T20:52:07.334Z",
+        "returnDate": "2023-02-19T20:52:07.334Z"
+      },
+      "id": "whJEgRt"
+    }
+  ]
 }
