@@ -46,15 +46,12 @@
     </div>
   </div>
 
-    <!-- <BookDetails :COVER_URL='COVER_URL'/> --> <!-- PASAR POR PROPS-->
+  <!-- //FIXME:< CONVERT IT INTO A PAGE & GUARD THE ROUTE> -->
   <BookDetails 
     v-if="storeGetBooks.editionDetails.title !== '' && storeGetUser.user.firstName !== ''" />
-    <!-- v-if="storeGetBooks.displayBook" /> -->
-  //FIXME: 
-  <!-- <div v-else class="missing-user">
-    You need to be logged in order to see the book datails and borrow it. Please log or sign.
-  </div> -->
-  <!-- </div> -->
+  <div v-if="storeGetBooks.editionDetails.title !== '' && storeGetUser.user.firstName === ''" class="missing-user">
+    You need to be logged in order to see the book datails and borrow or reserve it. Please log in or create an account.
+  </div>
 </template>
 
 <script setup> 

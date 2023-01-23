@@ -11,7 +11,7 @@
 
             <button v-if="storeGetBookAvailability.bookIsAvailable" 
                 @click="storeGetBookAvailability.linkToUser(storeGetUser.user.email, storeGetBooks.editionDetails);
-                    storeGetUser.borrowToUser(storeGetUser.user, storeGetBooks.editionDetails.title, storeGetBooks.editionDetails.isbn)">
+                    storeGetUser.borrowNthDocToUser(storeGetUser.user, storeGetBooks.editionDetails.title, storeGetBooks.editionDetails.isbn)">
                 Borrow this item
             </button>
             <button v-else>Reserve this item</button>
@@ -28,19 +28,17 @@
 import { useGetBooksStore } from '../stores/getBooks'
 import { useGetUserStore } from '../stores/getUser'
 import { useGetBookAvailability } from '../stores/getBookAvailability'
-
 // import Books from '../pages/Books.vue'
-
 
 const storeGetBooks = useGetBooksStore()
 const storeGetUser = useGetUserStore()
 const storeGetBookAvailability = useGetBookAvailability()
 
+console.log('ENTERED BOOKDETAILS COMPONENT')    
 console.log(storeGetBooks.editionDetails.isbn)
 console.log(storeGetUser.user.email)
 console.log(storeGetBooks.editionDetails)
 
-// storeGetBookAvailability.isAvailable(storeGetBooks.editionDetails.isbn)
 storeGetBookAvailability.isAvailable(storeGetBooks.editionDetails.isbn)
 
 // TODO: TOGGLE BETWEEN DISPLAYBOOK SO IT IS SHOWED ONLY WHEN TRUE

@@ -1,11 +1,52 @@
 header {
+    color: rgb(0, 200, 255);
+}
+
+.container-header {
+    
+    
     display: flex;
     flex-flow: column wrap;
-
-    color: rgb(79, 113, 165);
-    background-color:salmon;
 }
-  
+
+.sitcky-menu {
+    width: 100vw;
+    height: 2em;
+
+    padding: .5em 0;
+
+    
+    background-color: rgb(0, 35, 106); 
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+.social-icons {
+    display: flex;
+    text-align: start;
+    column-gap: .8em;
+}
+
+
+.user-actions {
+    display: flex;
+    text-align: end;
+    column-gap: .8em;
+}
+
+.navbar-menu {
+    height: 4em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 3em;
+}
+
 /* I C O N S */
 /* U S E R */
 .user-log {

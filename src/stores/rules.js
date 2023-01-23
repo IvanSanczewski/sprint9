@@ -6,7 +6,7 @@ export const useRulesStore = defineStore('rules', {
         displayRules: false
     }),
     actions: {
-        toggleRules() {
+        toggleDisplayRules() {
             this.displayRules = !this.displayRules
         }
     }

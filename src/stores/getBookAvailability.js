@@ -42,16 +42,16 @@ export const useGetBookAvailability = defineStore('getBookAvailability', {
             }
             this.newBorrowedBook = { ...book, borrow}
 
+            // AN ALTERNATIVE WAY TO ADD NESTED PROPERTIES TO AN OBJECT
             // this.newBorrowedBook = Object.assign(book,
             //     {borrow: {
             //         user,
             //         borrowDate: new Date
             // }})
         
-            // [borrowedBooks] has to work as backend as next function does not work
+
             this.borrowedBooks.push(this.newBorrowedBook)
 
-            //FIXME: ERROR - SAME ENDPOINT IS WORKING PROPERLY 
             fetch(borrowedBooks_db_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

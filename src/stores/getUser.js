@@ -23,15 +23,7 @@ export const useGetUserStore = defineStore('getUser', {
             email: '',
             password: '',
             isAdmin: null,
-            borrow: {
-                doc1: {
-                    title: '',
-                    isbn:'',
-                    borrowDate: {},
-                    returnDate:  {},
-                    extendedBorrow: 0
-                }
-            }
+            borrow: {}
         },
         signInUser:{
             firstName: '',
@@ -57,6 +49,9 @@ export const useGetUserStore = defineStore('getUser', {
         emailErr: false,
         mailRegEx: /^([a-zA-Z0-9\._-]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/,
         emailErrMsg: 'The provided email is invalid, please provide a valid one',
+
+        exixtingEmailErr: false,
+        exixtingEmailErrMsg: 'This email has already been registered',
 
         passwordErr: false,
         passwordErrMsg:'Your password must be 8 to 20 characters and contain at least one lowercase, one uppercase, one number and one special character',
@@ -97,9 +92,11 @@ export const useGetUserStore = defineStore('getUser', {
             this.existingEmail = ''
             this.existingPassword = ''
             this.displayLogIn = false
+            //TODO: PUSH ROUTE HOME
         },
 
         // C R U D  (create)
+        // S I G N   I N
         validateSignInUser() {
 
             //first name validation
@@ -125,6 +122,10 @@ export const useGetUserStore = defineStore('getUser', {
             } else if (!this.mailRegEx.test(this.signInUser.email.trim())) {
                 this.emailErr = true
                 this.emptyEmailErr = false
+            } else if (this.users.some(item => item.email === this.signInUser.email)) {
+                this.exixtingEmailErr = true
+                this.signInUser.email = ''
+                this.signInUser.password = ''
             } else {
                 // this.user.email = this.signInUser.email.trim()
                 this.emailErr = false
@@ -139,40 +140,25 @@ export const useGetUserStore = defineStore('getUser', {
                 this.passwordErr = false
             }
 
-            if (!this.firstNameErr && !this.lastNameErr && !this.emailErr && !this.emptyEmailErr && !this.passwordErr) {
-                this.user = {
-                    firstName: this.signInUser.firstName.trim(),
-                    lastName: this.signInUser.lastName.trim(),
-                    email: this.signInUser.email.trim(),
-                    password: this.signInUser.password.trim(),
-                    isAdmin: true,
-                    borrow: {
-                        doc1: {
-                            title:'',
-                            isbn:'',
-                            work:'',
-                            borrowDate:'',
-                            returnDate:'',
-                            extendedBorrow: 0
-                        },
-                        doc2: {
-                            title:'',
-                            isbn:'',
-                            work:'',
-                            borrowDate:'',
-                            returnDate:'',
-                            extendedBorrow: 0
-                        },
-                        doc3: {
-                            title:'',
-                            isbn:'',
-                            work:'',
-                            borrowDate:'',
-                            returnDate:'',
-                            extendedBorrow: 0 
-                        }
+            if (!this.firstNameErr && !this.lastNameErr && !this.emailErr && !this.emptyEmailErr && !this.exixtingEmailErr && !this.passwordErr) {
+                if (this.signInUser.email.includes('@natlib.lt')) {
+                    this.user = {
+                        firstName: this.signInUser.firstName.trim(),
+                        lastName: this.signInUser.lastName.trim(),
+                        email: this.signInUser.email.trim(),
+                        password: this.signInUser.password.trim(),
+                        isAdmin: true,
+                        borrow: {}
                     }
-
+                } else {
+                    this.user = {
+                        firstName: this.signInUser.firstName.trim(),
+                        lastName: this.signInUser.lastName.trim(),
+                        email: this.signInUser.email.trim(),
+                        password: this.signInUser.password.trim(),
+                        isAdmin: false,
+                        borrow: {}
+                    }
                 }
                 this.checkUser(this.user.email)                 
             }
@@ -219,34 +205,119 @@ export const useGetUserStore = defineStore('getUser', {
         },
 
         // C R U D  (update)
-        // update user to be admins is a feature available only to admins (this way staff can make new staff admins)
+        // update user to be admins is a feature available only to admins (this way staff can make new staff an admin)
         async makeAdmin(userId) {
-            console.log(userId)
-            await projectFirestore.collection('users')
-                .doc(userId)
-                .update({
-                    isAdmin: true
-                })
+            await projectFirestore.collection('users').doc(userId).update({isAdmin: true})
             this.getRegisteredUsers()
             // this.users.filter(item => item.id === userId)
             
         },
 
+        borrowNthDocToUser(user, title, isbn) {
+            console.log(user)
+            console.log(user.borrow)
+            console.log(user.borrow.doc1)
+            console.log(!user.borrow.doc1)
+            console.log(user.borrow.doc2)
+            console.log(!user.borrow.doc2)
+            console.log(user.borrow.doc3)
+            console.log(!user.borrow.doc3)
+
+            if (!user.borrow.doc1) {
+                console.log('doc1')
+                this.borrowDoc1ToUser(user, title, isbn)
+            } else if (user.borrow.doc1 && !user.borrow.doc2) {
+                console.log('doc2')
+                this.borrowDoc2ToUser(user, title, isbn)
+            } else if (user.borrow.doc1 && user.borrow.doc2 && user.borrow.doc3) {
+                console.log('doc3')
+                this.borrowDoc3ToUser(user, title, isbn)
+            } else {
+                alert('You have reached the maximum (3) number of borrowed documents. Please return at least one of them before attempting to borrow or reserve another one.')
+            }
+            
+            
+        },
+
         // TODO: IMPLEMENT BORROWED BOOK IN USER DB & USER IN BOOK DB
-        borrowToUser(user, title, isbn) {
-            if (user.borrow.doc1.title === '') {
-                let initialDate = new Date
-                user.borrow.doc1 = {
-                    title: '',
-                    isbn: isbn,
+        async borrowDoc1ToUser(user, title, isbn) {
+            let initialDate = new Date
+            user.borrow = {
+                doc1: {
+                    title,
+                    isbn,
                     borrowDate: new Date,
                     returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
                     extendedBorrow: 0
                 }
             }
             console.log(user)
-            console.log(isbn)
+            await projectFirestore.collection('users')
+                .doc(user.id)
+                .update({borrow: {
+                    doc1: {
+                        title,
+                        isbn,
+                        borrowDate: new Date,
+                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                        extendedBorrow: 0
+                    }
+                }
+            })
         },
+        
+        async borrowDoc2ToUser(user, title, isbn) {
+            let initialDate = new Date
+            user.borrow = {
+                doc2: {
+                    title,
+                    isbn,
+                    borrowDate: new Date,
+                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                    extendedBorrow: 0
+                }
+            }
+            console.log(user)
+            await projectFirestore.collection('users')
+                .doc(user.id)
+                .update({borrow: {
+                    doc2: {
+                        title,
+                        isbn,
+                        borrowDate: new Date,
+                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                        extendedBorrow: 0
+                    }
+                }
+            })
+        },
+
+        async borrowDoc3ToUser(user, title, isbn) {
+            let initialDate = new Date
+            user.borrow = {
+                doc3: {
+                    title,
+                    isbn,
+                    borrowDate: new Date,
+                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                    extendedBorrow: 0
+                }
+            }
+            console.log(user)
+            await projectFirestore.collection('users')
+                .doc(user.id)
+                .update({borrow: {
+                    doc3: {
+                        title,
+                        isbn,
+                        borrowDate: new Date,
+                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                        extendedBorrow: 0
+                    }
+                }
+            })
+        },
+        
         // extendDocumentBorrow(xxxx) {
 
         // },
@@ -297,45 +368,43 @@ export const useGetUserStore = defineStore('getUser', {
                     alert('This user does not exists. Please sign in first.')
                 }
             }
-        },
-    
-        
-
+        }
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let borrowDate = new Date
 let initialDate = new Date // this date is used to calculate the 4 weeks borrow period, but when setDate method is applied, it sets the new date also to initialDate, therefore we do not use borrowDate to make the calculation
 let returnDate = new Date(initialDate.setDate(initialDate.getDate() + 28))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
    // async logInUser(email, password) {

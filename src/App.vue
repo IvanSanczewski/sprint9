@@ -1,33 +1,44 @@
 <template>
   <!-- H E A D E R -->
   <header>
-    <div class="social-icons">
-      <div class="social-fb"><font-awesome-icon :icon="['fab', 'facebook']" /></div>
-      <div class="social-tw"><font-awesome-icon :icon="['fab', 'twitter']" /></div>
-      <div class="social-ytb"><font-awesome-icon :icon="['fab', 'youtube']" /></div>
-      <div class="user-log">
-        <!-- <span class="user-action">LogIn</span> -->
-        <!-- <div v-show="!storeGetUser.isLogged" @click="storeGetUser.getRegisteredUser" class="user-action">LogIn</div> --> <!-- DELETE?? -->
-        
-        <div v-show="!storeGetUser.isLogged" @click="storeGetUser.toggleDisplayLogIn" class="user-action">LogIn</div>
-        <div v-show="storeGetUser.isLogged" @click="storeGetUser.logOutUser" class="user-action">LogOut</div>
-        <div v-show="storeGetUser.isLogged" > User: {{ storeGetUser.user.firstName }} {{ storeGetUser.user.lastName }}</div>
-        <LogIn v-if="storeGetUser.displayLogIn"/>
-        
-        <div @click="storeGetUser.toggleDisplaySignIn" class="user-action">SignIn</div>
-        <SignIn v-if="storeGetUser.displaySignIn"/>
-      </div>
-    </div>
-    <h1 class="title">the NATLIB</h1>
-    <div class="user-actions">
+    <div class="container-header">
       
-      <!--<LogIn />  ACTIVATE LOGIN COMPONENT -->
-    </div>
+      <div class="sitcky-menu">
 
-
-      <!--<LogIn />  ACTIVATE LOGIN COMPONENT -->
-    <div class="navbar">
-      <Navbar />
+        <!-- SOCIAL ICONS -->
+        <div class="social-icons">
+          <a href="#" class="social-fb"><font-awesome-icon :icon="['fab', 'facebook']" /></a>
+          <a href="#" class="social-tw"><font-awesome-icon :icon="['fab', 'twitter']" /></a>
+          <a href="#" class="social-ytb"><font-awesome-icon :icon="['fab', 'youtube']" /></a>
+        </div>
+        <!-- NATLIB -->
+        <div class="natlib">
+          <span class="title">the logo</span>
+          <span class="title">the NATLIB</span>
+        </div>
+        <!-- USER -->
+        <div class="user-actions">
+          <div class="user-log">
+            <!-- <span class="user-action">LogIn</span> -->
+            <!-- <div v-show="!storeGetUser.isLogged" @click="storeGetUser.getRegisteredUser" class="user-action">LogIn</div> --> <!-- DELETE?? -->
+        
+            <a href="#" v-show="!storeGetUser.isLogged" @click="storeGetUser.toggleDisplayLogIn" class="user-action">LogIn</a>
+            <a href="#" v-show="storeGetUser.isLogged" @click="storeGetUser.logOutUser" class="user-action">LogOut</a>
+            <div v-show="storeGetUser.isLogged" > User: {{ storeGetUser.user.firstName }} {{ storeGetUser.user.lastName }}</div>
+            <LogIn v-if="storeGetUser.displayLogIn"/>
+          </div>
+        
+          <div class="user-sign">
+            <a href="#" @click="storeGetUser.toggleDisplaySignIn" class="user-action">SignIn</a>
+            <SignIn v-if="storeGetUser.displaySignIn"/>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="navbar-menu">
+        <Navbar />
+      </div>
     </div>
   </header>
   

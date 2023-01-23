@@ -30,8 +30,6 @@ export const useGetBooksStore = defineStore('getBooks', {
         // SEARCH
         search: '',
         searchItem: '',
-        // TITLE
-        // title: 'Ebano',
         titleWorks: [],
         
         // AUTHOR
@@ -52,6 +50,8 @@ export const useGetBooksStore = defineStore('getBooks', {
             available:''
         },
         // displayBook: false,
+        
+        //TODO: CHECK UTILITY & DELETE IF IT ISN'T NEEDED
         lastSearch: null,
 
         // COVER

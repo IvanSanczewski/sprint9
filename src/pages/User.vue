@@ -5,17 +5,26 @@
             <button class="user-btn-panel">Edit account</button>
             <button class="user-btn-panel">Delete account</button>
         </div>
+
+
+        <!-- D O C S -->
         <div class="user-borrow">
             <!-- TODO: IMPLEMENT RETURNED BOOKS -->
             <!-- <div class="read">LIST OF RETURNED BOOKS</div> -->
             <h3 class="reading">LIST OF BORROWED DOCUMENTS</h3>
                 // TODO: DETERMINE ARRAY TO ITERATE
-                <!-- <div v-for="book in storeGetUser.user.borrow" :key="book.title" class="borrowed-docs">
-                    <span> {{ book.title }} - </span> -->
-                    <!-- <span> {{ book.borrow.borrowData }} - </span> -->
-                    <!-- <span> {{ book.borrow.returnData }} - </span> -->
-                <!-- </div> -->
+                <div v-for="doc in storeGetUser.user.borrow" :key="doc.title" class="borrowed-docs">
+                    <span> {{ doc.title }} - </span> 
+                    //TODO: ADD AUTHOR
+                    <!-- <span> {{ doc.author }} - </span>  -->
+                    <span> {{ doc.borrowDate }} - </span>
+                    <span> {{ doc.returnDate }} - </span>
+                </div>
         </div>
+
+
+
+        <!-- A D M I N S -->
         <div v-show="storeGetUser.user.isAdmin">
         <button @click="storeGetUser.toggleDisplayUsersList">Get Users</button>
             <div v-show="storeGetUser.displayUsersList" class="users-list">

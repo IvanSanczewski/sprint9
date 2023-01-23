@@ -9,9 +9,3 @@
 <script setup>
     console.log('movies page')
 </script>
-
-<style>
-.movies {
-    color: rgb(240, 23, 16)
-}
-</style>

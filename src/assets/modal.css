@@ -1,0 +1,93 @@
+.backdrop {
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.45);    
+    backdrop-filter: blur(2.5px);
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-signin-modal, .modal {
+    margin: 100px auto;
+    padding: 3em;
+    width: 55% ;
+    /* max-width: 95%; */
+    
+
+    color: rgb(112, 224, 255);
+    background: #15024d;
+    border-radius: .7em;
+    
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 1em;
+    
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 1.5em;
+    font-size: 1.5em;
+}
+
+.form-logo>img {
+    width: 80px
+}
+
+.title-logo{
+    font-size: 2em;
+}
+
+.input-wrap {
+    margin: 1em;
+
+    display: flex;
+    flex-direction: column;
+}
+.input-wrap>label {
+    margin: 2em 0 .5em 0;
+    text-align: left;
+}   
+.input-wrap>input {
+    padding: 1em;
+
+    border: none;
+    border-radius: .5em;
+}
+
+.modal-form>button {
+    width: 50%;
+    margin-top: 4em;
+    padding: 1.5em;
+
+    color: rgb(0, 15, 44);
+    background: rgb(228 228 228);
+    
+    border: 3px solid rgb(0 15 44);
+    border-radius: .5em;
+}
+.modal-form>button:hover {
+    width: 50%;
+    margin-top: 4em;
+    padding: 1.5em;
+    
+    background: rgb(228 228 228);
+    border: 3px solid rgb(112 224 255);
+
+
+    border-radius: .5em;
+}
+
+.rules-logo>img {
+    width: 35px
+}
+
+.rules-close {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: 1em;
+}
