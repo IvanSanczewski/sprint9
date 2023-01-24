@@ -1,49 +1,61 @@
 <template>
-  <div class="books">
-    <h1>This is the Books page</h1>
+  <div class="books-container">
+
+    <div class="books-header">
+      <p style="fontStyle: italic">L'imaginazione è un posto dove ci piove dentro</p>
+      <p>Italo Calvino</p>
+      <h1>YOUR READING JOURNEY STARTS HERE</h1>
+    </div>
     <form @submit.prevent="storeGetBooks.setSearch(storeGetBooks.search)" class="search-form">
-      <label> Choose search term: author / title </label>
-      <!-- <select v-model="searchType" v-model:searchItem="searchItem"> -->
-      <select v-model="storeGetBooks.searchItem">
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-      </select>
+      <div>
+        <label> Choose search term: author / title </label>
+        <!-- <select v-model="searchType" v-model:searchItem="searchItem"> -->
+        <select v-model="storeGetBooks.searchItem">
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+        </select>
+      </div>
       <input v-model="storeGetBooks.search" type="text">
-      <button>SEARCH</button>
+      <button class="action-btn">SEARCH</button>
     </form>
 
-    <!-- T I T L E   N E W-->
+    <!-- T I T L E -->
     <!-- <div v-if="searchType === 'title'"> -->
-    <div v-if="storeGetBooks.searchItem === 'title'">
-      <div class="match">
-        <h4>Matching Titles:</h4>
-      <div v-for="work in storeGetBooks.titleWorks" :key="work.key">
-        <a href="#" @click="storeGetBooks.getBookDetails(work.key)">{{ work.title }}</a> <span> - {{ work.author_name }}</span>
-      </div>
-      </div>
-    </div> 
-
-    <!-- A U T H O R   N E W -->
-    <!-- <div v-if="searchType === 'author'"> -->       
-    <div v-if="storeGetBooks.searchItem === 'author'">
-      <div class="match">
-        <h4>Matching Authors:</h4>
-        <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
-          <a href="#" @click="storeGetBooks.getBooks(author.key)">{{ author.name }}</a> <span> - {{ author.work_count }}</span>
+    <div class="title-search">
+      <div v-if="storeGetBooks.searchItem === 'title'">
+        <div class="match">
+          <h4>Matching Titles:</h4>
+        <div v-for="work in storeGetBooks.titleWorks" :key="work.key">
+          <a href="#" @click="storeGetBooks.getBookDetails(work.key, work.author_name[0])">{{ work.title }}</a> <span> - {{ work.author_name }}</span>
+        </div>
         </div>
       </div>
+    </div>
+
+    <!-- A U T H O R -->
+    <!-- <div v-if="searchType === 'author'"> -->         
+    <div class="author-serach">
+      <div v-if="storeGetBooks.searchItem === 'author'">
+        <div class="match">
+          <h4>Matching Authors:</h4>
+          <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
+            <a href="#" @click="storeGetBooks.getBooks(author.key, author.name)">{{ author.name }}</a> <span> - {{ author.work_count }}</span>
+          </div>
+        </div>
       
-      <div class="match">
-        <div v-if="storeGetBooks.authorBooks.length > 0">
-          <h4>Books:</h4>
-          <div class="books">
-            <div v-for="book in storeGetBooks.authorBooks" :key="book.key">
-              <a href="#" @click="storeGetBooks.getBookDetails(book.key)">{{ book.title }}</a>
+        <div class="match">
+          <div v-if="storeGetBooks.authorBooks.length > 0">
+            <h4>Books:</h4>
+            <div class="books">
+              <div v-for="book in storeGetBooks.authorBooks" :key="book.key">
+                <a href="#" @click="storeGetBooks.getBookKey(book.key)">{{ book.title }}</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- //FIXME:< CONVERT IT INTO A PAGE & GUARD THE ROUTE> -->
@@ -63,15 +75,15 @@ import  BookDetails from '../components/BookDetails.vue'
 const storeGetBooks = useGetBooksStore()
 const storeGetUser = useGetUserStore()
 const storeGetBookAvailability = useGetBookAvailability()
-//TODO: storeGetBooks.getAuthorBooks()
+//TODO: storeGetBooks.getAuthorBooks() <-- IS IT REALLY NEEDED NOW THAT WE HAVE SET AUTHOR THROUGH A DIFFERENT PATH?
 
-//TODO: getBorrowedBooks()
 storeGetBookAvailability.getBorrowedBooks()
 
 
 storeGetBooks.search = ''
 storeGetBooks.searchItem = ''
 storeGetBooks.editionDetails.title = ''
+storeGetBooks.editionDetails.author = ''
 storeGetBooks.titleWorks = []
 storeGetBooks.authorsMatch = []
 // storeGetBooks.authorsMatchFiltered = []

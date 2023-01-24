@@ -9,7 +9,7 @@
     </div>
     <div class="footer-close">
       <img src="@/assets/img/NATLIB_LOGO.png" alt="The NAT-LIB logo" style="width: 35px">
-      <h5>©The NATIONAL LIBRARY of Lithuania, 2023</h5>
+      <p>©The NATIONAL LIBRARY of Lithuania, 2023</p>
     </div>
   </div>
   <div>

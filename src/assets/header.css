@@ -3,26 +3,38 @@ header {
 }
 
 .container-header {
-    
-    
     display: flex;
     flex-flow: column wrap;
 }
 
 .sitcky-menu {
     width: 100vw;
-    height: 2em;
+    height: 2.5em;
 
     padding: .5em 0;
-
     
     background-color: rgb(0, 35, 106); 
 
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: center;
     
+    position: relative;
+}
+
+.active-user{
+    position: absolute;
+
+    top: 2.9em;
+    right: 1em;
+
+    /* margin-right: 1em; */
+
+
+    /* text-align: end; */
+    font-weight: 300;
+    font-size: smaller;
 }
 
 .social-icons {
@@ -38,7 +50,7 @@ header {
     column-gap: .8em;
 }
 
-.navbar-menu {
+.navbar-container {
     height: 4em;
 
     display: flex;
@@ -46,6 +58,7 @@ header {
     align-items: center;
     column-gap: 3em;
 }
+
 
 /* I C O N S */
 /* U S E R */
@@ -81,5 +94,19 @@ header {
     text-align: center;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

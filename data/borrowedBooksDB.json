@@ -25,60 +25,49 @@
       }
     },
     {
-      "isbn": "8433925458",
+      "isbn": 9788433902412,
       "title": "Ebano",
-      "pages": null,
+      "author": "Ryszard Kapuściński",
+      "pages": 352,
       "language": "spa",
-      "key": "/books/OL13236300M",
+      "key": "/books/OL29858635M",
       "available": false,
       "borrow": {
-        "user": "22@22.de",
-        "borrowDate": "2023-01-22T15:32:33.078Z",
-        "returnDate": "2023-02-19T15:32:33.078Z"
+        "user": "security@natlib.lt",
+        "borrowDate": "2023-01-24T15:18:14.854Z",
+        "returnDate": "2023-02-21T15:18:14.854Z"
       },
-      "id": "upH0Zm1"
+      "id": "pX5t8Bb"
     },
     {
-      "isbn": "0802151590",
-      "title": "Cosmos and Pornografia",
-      "pages": 362,
-      "language": "eng",
-      "key": "/books/OL7875284M",
-      "available": false,
-      "borrow": {
-        "user": "pinia@pinia.es",
-        "borrowDate": "2023-01-22T20:29:25.551Z",
-        "returnDate": "2023-02-19T20:29:25.552Z"
-      },
-      "id": "0c0gYDQ"
-    },
-    {
-      "isbn": 9798353580720,
-      "title": "Heart of a Dog",
-      "pages": 78,
-      "language": "eng",
-      "key": "/books/OL46426795M",
-      "available": false,
-      "borrow": {
-        "user": "aaa@aaa.aa",
-        "borrowDate": "2023-01-22T20:50:01.893Z",
-        "returnDate": "2023-02-19T20:50:01.893Z"
-      },
-      "id": "tADiDQA"
-    },
-    {
-      "isbn": 9788807018206,
-      "title": "La cotogna di Istanbul",
-      "pages": 184,
+      "isbn": "8807880458",
+      "title": "È Oriente",
+      "author": "Paolo Rumiz",
+      "pages": 198,
       "language": "ita",
-      "key": "/books/OL30494265M",
+      "key": "/books/OL27220787M",
       "available": false,
       "borrow": {
-        "user": "22@22.de",
-        "borrowDate": "2023-01-24T07:56:02.092Z",
-        "returnDate": "2023-02-21T07:56:02.092Z"
+        "user": "security@natlib.lt",
+        "borrowDate": "2023-01-24T15:18:36.168Z",
+        "returnDate": "2023-02-21T15:18:36.168Z"
       },
-      "id": "a-esTJ4"
+      "id": "7WufShr"
+    },
+    {
+      "isbn": 9788893442862,
+      "title": "La Regina del Silenzio",
+      "author": "Paolo Rumiz",
+      "pages": 214,
+      "language": "ita",
+      "key": "/books/OL44109383M",
+      "available": false,
+      "borrow": {
+        "user": "security@natlib.lt",
+        "borrowDate": "2023-01-24T15:18:51.881Z",
+        "returnDate": "2023-02-21T15:18:51.881Z"
+      },
+      "id": "R-diPw9"
     }
   ]
 }

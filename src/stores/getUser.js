@@ -208,47 +208,35 @@ export const useGetUserStore = defineStore('getUser', {
         // update user to be admins is a feature available only to admins (this way staff can make new staff an admin)
         async makeAdmin(userId) {
             await projectFirestore.collection('users').doc(userId).update({isAdmin: true})
-            this.getRegisteredUsers()
-            // this.users.filter(item => item.id === userId)
-            
+            this.getRegisteredUsers()            
         },
 
-        borrowNthDocToUser(user, title, isbn) {
-            console.log(user)
-            console.log(user.borrow)
-            console.log(user.borrow.doc1)
-            console.log(!user.borrow.doc1)
-            console.log(user.borrow.doc2)
-            console.log(!user.borrow.doc2)
-            console.log(user.borrow.doc3)
-            console.log(!user.borrow.doc3)
-
+        borrowNthDocToUser(user, title, author, isbn) {
+            console.log(user, title, author, isbn)
             if (!user.borrow.doc1) {
-                console.log('doc1')
-                this.borrowDoc1ToUser(user, title, isbn)
+                this.borrowDoc1ToUser(user, title, author, isbn)
+
             } else if (user.borrow.doc1 && !user.borrow.doc2) {
-                console.log('doc2')
-                this.borrowDoc2ToUser(user, title, isbn)
-            } else if (user.borrow.doc1 && user.borrow.doc2 && user.borrow.doc3) {
-                console.log('doc3')
-                this.borrowDoc3ToUser(user, title, isbn)
+                this.borrowDoc2ToUser(user, title, author, isbn)
+
+            } else if (user.borrow.doc1 && user.borrow.doc2 && !user.borrow.doc3) {
+                this.borrowDoc3ToUser(user, title, author, isbn)
+
             } else {
                 alert('You have reached the maximum (3) number of borrowed documents. Please return at least one of them before attempting to borrow or reserve another one.')
             }
-            
-            
         },
 
-        // TODO: IMPLEMENT BORROWED BOOK IN USER DB & USER IN BOOK DB
-        async borrowDoc1ToUser(user, title, isbn) {
+        // asign doc1 to user
+        async borrowDoc1ToUser(user, title, author, isbn) {
             let initialDate = new Date
-            //FIXME: DESTRUCTURATE THE WHOLE OBJECT
             user.borrow = {
                 doc1: {
                     title,
+                    author,
                     isbn,
-                    borrowDate: new Date,
-                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                    borrowDate: new Date().toLocaleDateString('lt-LT'),
+                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)).toLocaleDateString('lt-LT'),
                     extendedBorrow: 0
                 }
             }
@@ -258,74 +246,47 @@ export const useGetUserStore = defineStore('getUser', {
                 .update({borrow: {
                     doc1: {
                         title,
+                        author,
                         isbn,
-                        borrowDate: new Date,
-                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                        borrowDate: new Date().toLocaleDateString('lt-LT'),
+                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)).toLocaleDateString('lt-LT'),
                         extendedBorrow: 0
                     }
                 }
             })
         },
         
-        // async borrowDoc2ToUser(user, title, isbn) {
-        async borrowDoc2ToUser(user, title, isbn) {
+        // asign doc2 to user
+        async borrowDoc2ToUser(user, title, author, isbn) {
             let initialDate = new Date
-            //FIXME: DESTRUCTURATE THE WHOLE OBJECT
+            let doc2 ={ title, author, isbn, borrowDate: new Date().toLocaleDateString('lt-LT'), returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)).toLocaleDateString('lt-LT'), extendedBorrow: 0 }
             
-            let doc2 ={ title, isbn, borrowDate: new Date, returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)), extendedBorrow: 0 }
             user.borrow = {...this.user.borrow, doc2}
-
-            // user.borrow = { doc2: { title, isbn, borrowDate: new Date, returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)), extendedBorrow: 0 }}
-            
-            console.log(user)
-
             await projectFirestore.collection('users')
                 .doc(user.id)
                 .update({borrow: user.borrow})
-                // .update({borrow: {
-                //     doc2: {
-                //             title,
-                //             isbn,
-                //             borrowDate: new Date,
-                //             returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-                //             extendedBorrow: 0
-                //         }
-                //     }
-                // })
-            },
-                
-        // async borrowDoc3ToUser(user, title, isbn) {
-            //     let initialDate = new Date
-            //FIXME: DESTRUCTURATE THE WHOLE OBJECT
-            //     user.borrow = {
-        //         doc3: {
-        //             title,
-        //             isbn,
-        //             borrowDate: new Date,
-        //             returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-        //             extendedBorrow: 0
-        //         }
-        //     }
-        //     console.log(user)
-        //     await projectFirestore.collection('users')
-        //         .doc(user.id)
-        //         .update({borrow: {
-        //             doc3: {
-        //                 title,
-        //                 isbn,
-        //                 borrowDate: new Date,
-        //                 returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-        //                 extendedBorrow: 0
-        //             }
-        //         }
-        //     })
-        // },
+        },
         
-        // extendDocumentBorrow(xxxx) {
+        // asign doc3 to user
+        async borrowDoc3ToUser(user, title, author, isbn) {
+            let initialDate = new Date
+            let doc3 ={ title, author, isbn, borrowDate: new Date().toLocaleDateString('lt-LT'), returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)).toLocaleDateString('lt-LT'), extendedBorrow: 0 }
+            
+            user.borrow = {...this.user.borrow, doc3}
+            await projectFirestore.collection('users')
+                .doc(user.id)
+                .update({borrow: user.borrow})
+        },
 
+        //TODO: DELETE DOC FROM USER
+        async deleteDocFromUser(){
+
+        },
+
+        //TODO: EXTRA FEATURES --> EXTEND BORROW & BAN USER
+        // extendDocumentBorrow(xxxx) {
         // },
         // banUser(mail){
-
         // },
 
         // C R U D  (delete)

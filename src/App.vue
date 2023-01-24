@@ -24,8 +24,8 @@
         
             <a href="#" v-show="!storeGetUser.isLogged" @click="storeGetUser.toggleDisplayLogIn" class="user-action">LogIn</a>
             <a href="#" v-show="storeGetUser.isLogged" @click="storeGetUser.logOutUser" class="user-action">LogOut</a>
-            <div v-show="storeGetUser.isLogged" > User: {{ storeGetUser.user.firstName }} {{ storeGetUser.user.lastName }}</div>
             <LogIn v-if="storeGetUser.displayLogIn"/>
+            <!-- <div v-show="storeGetUser.isLogged" > User: {{ storeGetUser.user.firstName }} {{ storeGetUser.user.lastName }}</div> -->
           </div>
         
           <div class="user-sign">
@@ -34,11 +34,15 @@
           </div>
         </div>
       </div>
+
+      <div class="active-user" v-show="storeGetUser.isLogged" > User: {{ storeGetUser.user.firstName }} {{ storeGetUser.user.lastName }}</div>
       
       
-      <div class="navbar-menu">
+      <div>
         <Navbar />
+        <!-- <div class="active-user" v-show="storeGetUser.isLogged" > User: {{ storeGetUser.user.firstName }} {{ storeGetUser.user.lastName }}</div> -->
       </div>
+      
     </div>
   </header>
   

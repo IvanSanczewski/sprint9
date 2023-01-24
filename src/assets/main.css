@@ -1,17 +1,27 @@
 /* @import './base.css'; */
 @import './header.css';
 @import './books.css';
-@import './footer.css';
+@import './footer.css'; 
 @import './modal.css';
+@import './movies.css';
+@import './user.css';
+
+
+* {
+  font-family: 'Exo', sans-serif;
+  font-family: 'Source Code Pro', monospace;
+  padding: 0;
+}
+
 
 
 body {
   /* width: 1280px; */
   margin: 0 auto;
-  padding: 0rem; /* 2rem in lg screen */
+ /* 2rem in lg screen */
   
-  /* box-sizing: border-box; */
-  box-sizing: content-box;
+  box-sizing: border-box; 
+  /* box-sizing: content-box; */
   
   font-weight: normal;
   
@@ -22,7 +32,6 @@ body {
 main {
   max-width: 940px;
   margin: 0 auto;
-  padding: 5em
 }
 
 a {
@@ -32,6 +41,20 @@ a {
 a:hover{
   color: rgb(0, 136, 255);
 }
+
+/* .action-btn {
+  padding: .5em;
+
+  border: none;
+  border-radius: .5em;
+}
+
+input {
+  padding: .5em;
+  border: none;
+
+  border-radius: .5em;
+} */
 
 /* a,
 .green {

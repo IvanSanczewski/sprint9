@@ -58,6 +58,12 @@ export const useGetBookAvailability = defineStore('getBookAvailability', {
                 body: JSON.stringify(this.newBorrowedBook)
             })
         },
+
+        //TODO: DELETE BOOK FROM DB
+        // delete book drom db
+        deleteDocFromBorrowedBooks(isbn) {
+
+        }
     
     }
 })

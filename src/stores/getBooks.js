@@ -33,7 +33,7 @@ export const useGetBooksStore = defineStore('getBooks', {
         titleWorks: [],
         
         // AUTHOR
-        // author: 'Gabriel Márquez',
+        author: '',
         authorsMatch: [],
         // authorsMatchFiltered: [],
         authorBooks: [],
@@ -43,6 +43,7 @@ export const useGetBooksStore = defineStore('getBooks', {
         // initialize all parameters of the object in ordert to assign 'N/A' to isbn, this way we avoid console error on loading the template containing API call
         editionDetails: {
             isbn:'N/A',
+            author: '',
             title:'',
             pages:'',
             language:'',
@@ -65,16 +66,18 @@ export const useGetBooksStore = defineStore('getBooks', {
 
         searchType: (state) => {
             state.searchItem
+            state.search = ''
+            state.editionDetails = {
+                isbn:'N/A',
+                author: '',
+                title:'',
+                pages:'',
+                language:'',
+                key:'',
+                available:''
+            }
             return state.searchItem
         }
-
-        // READ >>4
-        // watchUserEmail: (state) => {
-        //     return storeGetUser.user.userEmail
-        //     console.log(userEmail)
-        //     console.log(state.search)
-        // }
-
     },
     actions: {
         // triggers the appropiate tree of functions that will populate {editionDetails} according to the search type
@@ -97,7 +100,6 @@ export const useGetBooksStore = defineStore('getBooks', {
             console.log(title);
             try {
                 const titleData = await axios.get(`${TITLE_URL}${title}`)
-                console.log(titleData.data.docs)
                 this.titleWorks = titleData.data.docs
                 // because OpenLibrary DB contains several ammount of books with the same name, sometimes even hundreds, we cutoff the total ammount of works offered to the user to the first 20
                 this.titleWorks.splice(20, Infinity)
@@ -130,13 +132,14 @@ export const useGetBooksStore = defineStore('getBooks', {
         },
 
         // fetch author's books according to authors key reference
-        async getBooks(authorKey) {
+        async getBooks(authorKey, author) {
             console.log('searhing books')
-            console.log(authorKey)
+            console.log(authorKey, author)
             try {
                 const authorBooksData = await axios.get(`${AUTHOR_KEY_URL}${authorKey}/works.json`)
                 // this.authorBooks = authorBooksData.data
                 this.authorBooks = authorBooksData.data.entries
+                this.author = author
                 
                 // because OpenLibrary has an enormous amount of books and different editions, for simpilcity it is convenient to restrict number of books for each author to 40
                 this.authorBooks.splice(40,Infinity)
@@ -148,10 +151,18 @@ export const useGetBooksStore = defineStore('getBooks', {
             }
         },
 
+        getBookKey(bookKey){
+            console.log(bookKey)
+            console.log(this.author)
+            this.getBookDetails(bookKey, this.author)
+        },
+
         // fetch book's details
-        async getBookDetails(bookKey) {
+        async getBookDetails(bookKey, authorName) {
             console.log('book details')
             console.log(bookKey)
+            console.log(authorName)
+            this.author = authorName
             try {
                 const bookData = await axios.get(`${BOOK_KEY_URL}${bookKey}/editions.json`)
                 console.log(bookData.data.entries)
@@ -170,7 +181,8 @@ export const useGetBooksStore = defineStore('getBooks', {
                         // isbn: (Number(bookData.data.entries[0].isbn_10[0]).length === 9) ? ('0' + Number(bookData.data.entries[0].isbn_10[0]).toString) : Number(bookData.data.entries[0].isbn_10[0]),
                     
                         title: bookData.data.entries[0].title,
-                    
+                        //TODO: DETERMINE AUTHOR
+                        author: this.author,
                         // some books have no such parameter as 'number_of_pages' (therefore throwing an 'undefined' value), instead they may have the parameter 'pagination', in such case we look for it. Most of these cases are a string, so we convert them into number
                         pages: (bookData.data.entries[0].number_of_pages !== undefined) ? Number(bookData.data.entries[0].number_of_pages) : Number(bookData.data.entries[0].pagination),
                         // pages: bookData.data.entries[0].number_of_pages,
@@ -197,6 +209,8 @@ export const useGetBooksStore = defineStore('getBooks', {
                         isbn: (bookData.data.entries[0].isbn_13 !== undefined) ? Number(bookData.data.entries[0].isbn_13) : 'N/A',
 
                         title: bookData.data.entries[0].title,
+                        //TODO: DETERMINE AUTHOR
+                        author: this.author,
 
                         // some books have no such parameter as 'number_of_pages' (therefore throwing an 'undefined' value), instead they may have the parameter 'pagination', in such case we look for it. Most of these cases are a string, so we convert them into number
                         pages: (bookData.data.entries[0].number_of_pages !== undefined) ? Number(bookData.data.entries[0].number_of_pages) : Number(bookData.data.

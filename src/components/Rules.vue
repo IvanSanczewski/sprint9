@@ -1,6 +1,6 @@
 <template>
     <div class="backdrop">
-        <div class="modal">
+        <div class="modal-rules">
             <p class="close" @click="storeRules.toggleDisplayRules" style="cursor: pointer">
                 <font-awesome-icon icon="xmark" />
             </p>
@@ -16,7 +16,7 @@
                 <div class="rules-logo">
                     <img src="@/assets/img/NATLIB_LOGO.png" alt="The NAT-LIB logo">
                 </div>
-                <div>For further questions, contact The National Library +370(8)5-692808</div>
+                <p>For further questions, contact The National Library: +370(8)5-692808</p>
             </div>
         </div>
     </div>
@@ -29,10 +29,3 @@ const storeRules = useRulesStore()
 
 console.log('Rules component accessed')
 </script>
-
-<style>
-.modal {
-    color: rgb(0, 30, 0);
-    background: #999;
-}
-</style>

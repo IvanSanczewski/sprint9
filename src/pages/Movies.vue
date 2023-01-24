@@ -1,8 +1,9 @@
 <template>
     <div class="movies">
-        <h1>This is the Movies page</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt dignissimos ab eos amet quam magni!
-        </p>
+        <h2>WE WILL SOON BE OFFERING FILMS</h2>
+        <p>In the next few weeks we will bring to you our first catalogue of independent movies.</p>
+        <h4>Directly from the Sundance Film Festival!</h4>
+        <p>Stay tunned…</p>
     </div>
 </template>
 
