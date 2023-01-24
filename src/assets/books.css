@@ -1,7 +1,7 @@
 .book-card {
     display: flex;
     flex-direction: column;
-    /* color: rgb(8, 5, 5); */
+    color: rgb(288 288 288);
     background-color: aquamarine;
     column-gap: 2em;
 }

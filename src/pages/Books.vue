@@ -107,10 +107,6 @@ console.log('books page')
   margin-top: 1em;
 }
 
-.books {
-  color: rgb(3, 10, 7)
-}
-
 .search {
   cursor: pointer;
 }

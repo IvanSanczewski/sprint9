@@ -242,6 +242,7 @@ export const useGetUserStore = defineStore('getUser', {
         // TODO: IMPLEMENT BORROWED BOOK IN USER DB & USER IN BOOK DB
         async borrowDoc1ToUser(user, title, isbn) {
             let initialDate = new Date
+            //FIXME: DESTRUCTURATE THE WHOLE OBJECT
             user.borrow = {
                 doc1: {
                     title,
@@ -266,57 +267,59 @@ export const useGetUserStore = defineStore('getUser', {
             })
         },
         
+        // async borrowDoc2ToUser(user, title, isbn) {
         async borrowDoc2ToUser(user, title, isbn) {
             let initialDate = new Date
-            user.borrow = {
-                doc2: {
-                    title,
-                    isbn,
-                    borrowDate: new Date,
-                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-                    extendedBorrow: 0
-                }
-            }
-            console.log(user)
-            await projectFirestore.collection('users')
-                .doc(user.id)
-                .update({borrow: {
-                    doc2: {
-                        title,
-                        isbn,
-                        borrowDate: new Date,
-                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-                        extendedBorrow: 0
-                    }
-                }
-            })
-        },
+            //FIXME: DESTRUCTURATE THE WHOLE OBJECT
+            
+            let doc2 ={ title, isbn, borrowDate: new Date, returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)), extendedBorrow: 0 }
+            user.borrow = {...this.user.borrow, doc2}
 
-        async borrowDoc3ToUser(user, title, isbn) {
-            let initialDate = new Date
-            user.borrow = {
-                doc3: {
-                    title,
-                    isbn,
-                    borrowDate: new Date,
-                    returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-                    extendedBorrow: 0
-                }
-            }
+            // user.borrow = { doc2: { title, isbn, borrowDate: new Date, returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)), extendedBorrow: 0 }}
+            
             console.log(user)
+
             await projectFirestore.collection('users')
                 .doc(user.id)
-                .update({borrow: {
-                    doc3: {
-                        title,
-                        isbn,
-                        borrowDate: new Date,
-                        returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
-                        extendedBorrow: 0
-                    }
-                }
-            })
-        },
+                .update({borrow: user.borrow})
+                // .update({borrow: {
+                //     doc2: {
+                //             title,
+                //             isbn,
+                //             borrowDate: new Date,
+                //             returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+                //             extendedBorrow: 0
+                //         }
+                //     }
+                // })
+            },
+                
+        // async borrowDoc3ToUser(user, title, isbn) {
+            //     let initialDate = new Date
+            //FIXME: DESTRUCTURATE THE WHOLE OBJECT
+            //     user.borrow = {
+        //         doc3: {
+        //             title,
+        //             isbn,
+        //             borrowDate: new Date,
+        //             returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+        //             extendedBorrow: 0
+        //         }
+        //     }
+        //     console.log(user)
+        //     await projectFirestore.collection('users')
+        //         .doc(user.id)
+        //         .update({borrow: {
+        //             doc3: {
+        //                 title,
+        //                 isbn,
+        //                 borrowDate: new Date,
+        //                 returnDate: new Date(initialDate.setDate(initialDate.getDate() + 28)),
+        //                 extendedBorrow: 0
+        //             }
+        //         }
+        //     })
+        // },
         
         // extendDocumentBorrow(xxxx) {
 

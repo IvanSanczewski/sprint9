@@ -34,6 +34,5 @@ console.log('Rules component accessed')
 .modal {
     color: rgb(0, 30, 0);
     background: #999;
-
 }
 </style>
