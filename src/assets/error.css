@@ -1,0 +1,13 @@
+.firstNameErr, .lastNameErr, .emailErr, .passwordErr, .emptyEmailErr {
+    margin-top: .5em;
+    text-align: left;
+    
+    color: rgb(247, 40, 40);
+}
+
+.inputFail {
+    background:  rgb(255, 200, 200);
+
+}
+
+

@@ -5,6 +5,8 @@
 @import './modal.css';
 @import './movies.css';
 @import './user.css';
+@import './home.css';
+@import './error.css';
 
 
 * {
@@ -13,14 +15,16 @@
   padding: 0;
 }
 
+#app{
+  /* overflow: hidden; */
+  box-sizing: border-box; 
+}
+
 
 
 body {
-  /* width: 1280px; */
   margin: 0 auto;
- /* 2rem in lg screen */
   
-  box-sizing: border-box; 
   /* box-sizing: content-box; */
   
   font-weight: normal;
@@ -35,21 +39,21 @@ main {
 }
 
 a {
-  color: rgb(112, 224, 255);
+  color: rgb(112 224 255);
   text-decoration: none;
 }
 a:hover{
-  color: rgb(0, 136, 255);
+  color: rgb(0 136 255);
 }
 
-/* .action-btn {
+.action-btn {
   padding: .5em;
 
   border: none;
   border-radius: .5em;
 }
 
-input {
+/* input {
   padding: .5em;
   border: none;
 

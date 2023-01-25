@@ -6,31 +6,34 @@
       <p>Italo Calvino</p>
       <h1>YOUR READING JOURNEY STARTS HERE</h1>
     </div>
-    <form @submit.prevent="storeGetBooks.setSearch(storeGetBooks.search)" class="search-form">
-      <div>
+    <form class="search-form" @submit.prevent="storeGetBooks.setSearch(storeGetBooks.search)">
+      <div class="select-wrap">
         <label> Choose search term: author / title </label>
         <!-- <select v-model="searchType" v-model:searchItem="searchItem"> -->
         <select v-model="storeGetBooks.searchItem">
-          <option value="title">Title</option>
           <option value="author">Author</option>
+          <option value="title">Title</option>
         </select>
       </div>
-      <input v-model="storeGetBooks.search" type="text">
-      <button class="action-btn">SEARCH</button>
+      <div class="input-wrap-books">
+        <input v-model="storeGetBooks.search" type="text">
+        <button class="action-btn">SEARCH</button>
+      </div>
     </form>
 
     <!-- T I T L E -->
     <!-- <div v-if="searchType === 'title'"> -->
-    <div class="title-search">
-      <div v-if="storeGetBooks.searchItem === 'title'">
+      <div class="title-search" v-if="storeGetBooks.searchItem === 'title'">
         <div class="match">
           <h4>Matching Titles:</h4>
         <div v-for="work in storeGetBooks.titleWorks" :key="work.key">
-          <a href="#" @click="storeGetBooks.getBookDetails(work.key, work.author_name[0])">{{ work.title }}</a> <span> - {{ work.author_name }}</span>
+          <a href="#" @click="storeGetBooks.getBookDetails(work.key, work.author_name[0])">
+            <span class="search-primary-output"> {{ work.title }} </span>
+          </a>
+            <span class="search-secondary-output"> - {{ work.author_name }}</span>
         </div>
         </div>
       </div>
-    </div>
 
     <!-- A U T H O R -->
     <!-- <div v-if="searchType === 'author'"> -->         
@@ -39,7 +42,10 @@
         <div class="match">
           <h4>Matching Authors:</h4>
           <div v-for="author in storeGetBooks.authorsMatchFiltered" :key="author.key">
-            <a href="#" @click="storeGetBooks.getBooks(author.key, author.name)">{{ author.name }}</a> <span> - {{ author.work_count }}</span>
+            <a href="#" @click="storeGetBooks.getBooks(author.key, author.name)">
+              <span class="search-primary-output"> {{ author.name }} </span>
+            </a>
+              <span class="search-secondary-output"> - {{ author.work_count }}</span>
           </div>
         </div>
       

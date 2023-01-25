@@ -1,27 +1,33 @@
 <template>
-    <div class="book-card">
-    <h4>Book Details:</h4>
-        <img :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
-        <div class="book-info">
-            <h3>Title: {{ storeGetBooks.editionDetails.title }}</h3>
-            <h4>Author: {{ storeGetBooks.editionDetails.author }}</h4>
-            <p>Pages: {{ storeGetBooks.editionDetails.pages }}</p>
-            <p>Language: {{ storeGetBooks.editionDetails.language }}</p>
-            <p>ISBN: {{ storeGetBooks.editionDetails.isbn }}</p>
-            
-            <button v-if="storeGetBookAvailability.bookIsAvailable" 
-                @click="storeGetBookAvailability.linkToUser(storeGetUser.user.email, storeGetBooks.editionDetails);
-                    storeGetUser.borrowNthDocToUser(storeGetUser.user, storeGetBooks.editionDetails.title, storeGetBooks.editionDetails.author, storeGetBooks.editionDetails.isbn)">
-                Borrow this item
-            </button>
-            <button v-else>Reserve this item</button>
-            <div class="extras">
-                <button>Check borrow policy</button>
-                <!-- TODO: IMPLEMENT GO TO SEARCH, FIRST EMPTY FIELD -->
-                <button>Make another search</button>
+    <div class="book-details-container">
+        <h2>Book Details:</h2>
+        <div class="book-card">
+            <img :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
+            <div class="book-info">
+                <h3>Title: {{ storeGetBooks.editionDetails.title }}</h3>
+                <h4>Author: {{ storeGetBooks.editionDetails.author }}</h4>
+                <p>Pages: {{ storeGetBooks.editionDetails.pages }}</p>
+                <p>Language: {{ storeGetBooks.editionDetails.language }}</p>
+                <p>ISBN: {{ storeGetBooks.editionDetails.isbn }}</p>
+        
+                <div class="borrow-reserve">
+                    <button v-if="storeGetBookAvailability.bookIsAvailable"
+                        @click="storeGetBookAvailability.linkToUser(storeGetUser.user.email, storeGetBooks.editionDetails);
+                            storeGetUser.borrowNthDocToUser(storeGetUser.user, storeGetBooks.editionDetails.title, storeGetBooks.editionDetails.author, storeGetBooks.editionDetails.isbn)">
+                        Borrow this item
+                    </button>
+                    <button v-else>Reserve this item</button>
+                </div>
             </div>
-        </div>  
-    </div> 
+                <!-- <div class="extras">
+                     TODO: IMPLEMENT GO TO SEARCH, FIRST EMPTY FIELD
+                </div> -->
+        </div>
+        <div class="extra-actions">
+            <button class="action-btn">Check borrow policy</button>
+            <button class="action-btn">Make another search</button>
+        </div>
+    </div>
   
 </template>
 

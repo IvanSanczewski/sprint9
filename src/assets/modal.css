@@ -27,7 +27,7 @@
 
 .close {
     position: absolute;
-    top: 0;
+    top: 1em;
     right: 1.5em;
     font-size: 1.5em;
 }
@@ -55,6 +55,10 @@
 
     border: none;
     border-radius: .5em;
+}
+.show-password {
+    text-align: left;
+    margin-top: .5em;
 }
 
 .modal-form>button {

@@ -39,6 +39,7 @@ export const useGetUserStore = defineStore('getUser', {
         // validation errors
         firstNameErr: false,
         firstNameErrMsg: 'Please provide your first name',
+        // inputStatus: 'empty',
 
         lastNameErr: false,
         lastNameErrMsg: 'Please provide your Last name',
@@ -48,16 +49,15 @@ export const useGetUserStore = defineStore('getUser', {
 
         emailErr: false,
         mailRegEx: /^([a-zA-Z0-9\._-]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/,
-        emailErrMsg: 'The provided email is invalid, please provide a valid one',
+        emailErrMsg: 'This is an invalid email, please provide a valid one',
 
         exixtingEmailErr: false,
         exixtingEmailErrMsg: 'This email has already been registered',
 
         passwordErr: false,
         passwordErrMsg:'Your password must be 8 to 20 characters and contain at least one lowercase, one uppercase, one number and one special character',
-        passwordType: 'password'
+        passwordInputType: 'password'
 
-       
 
 
     }),
@@ -65,6 +65,13 @@ export const useGetUserStore = defineStore('getUser', {
         isLogged: (state) => {
             return (state.user.firstName === '')? false : true // CHECK
         }
+
+        // inputStatus: (state) => {
+        //     if (state.firstNameErr) {
+        //         console.log('input fail');
+        //         return 'input-fail'
+        //     }
+        // }
     },
     actions: {
         // D I S P L A Y
@@ -93,6 +100,9 @@ export const useGetUserStore = defineStore('getUser', {
             this.existingPassword = ''
             this.displayLogIn = false
             //TODO: PUSH ROUTE HOME
+        },
+        togglePasswordInputType() {
+            (this.passwordInputType === 'password')? this.passwordInputType = 'text' : this.passwordInputType = 'password'
         },
 
         // C R U D  (create)

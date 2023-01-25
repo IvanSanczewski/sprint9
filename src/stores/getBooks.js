@@ -101,6 +101,7 @@ export const useGetBooksStore = defineStore('getBooks', {
             try {
                 const titleData = await axios.get(`${TITLE_URL}${title}`)
                 this.titleWorks = titleData.data.docs
+                // this.titleWorks = titleData.data.docs
                 // because OpenLibrary DB contains several ammount of books with the same name, sometimes even hundreds, we cutoff the total ammount of works offered to the user to the first 20
                 this.titleWorks.splice(20, Infinity)
                 console.log(this.titleWorks)

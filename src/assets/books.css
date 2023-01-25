@@ -5,6 +5,7 @@
 
 .books-header>p {
     text-align: end;
+    margin-right: 3em;
 }
 
 .books-header>h1 {
@@ -15,8 +16,9 @@
 }
 
 .search-form {
-    margin-top: 2em;
-    width: 50%;
+    /* margin-top: 2em; */
+    margin: 2em 1em;
+    width: 60%;
 
     display: flex;
     flex-flow: column;
@@ -24,30 +26,208 @@
     row-gap: 1.2em;
 }
 
-/* .search-form>button {
+.select-wrap, .input-wrap-books { 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1em;
+}
+/* .select-wrap>label {
+
+}    */
+.select-wrap>select {
+    width: auto;
+    padding: .3em 2.5em .3em .3em;
+
+    border: none;
+    border-radius: .5em;
+}   
+
+.input-wrap-books>input {
+    width: 70%;
     padding: 1em;
+
+    background: rgb(228 228 228);
     
     border: none;
     border-radius: .5em;
-}  */
+}
+.input-wrap-books>button {
+    width: 20%;
+    padding: 1em 0;
 
-.search-form>input {
+    text-align: center;
+    
+    color: rgb(0, 15, 44);
+    background: rgb(228 228 228);
+    
+    border: none;
+    border-radius: .5em;
+}
+.input-wrap-books>button:hover {
+    background:  rgb(112 224 255);
+    cursor: pointer;
+}
+
+.title-search, .author-serach {
+    padding: 1em
+}
+
+.search-primary-output {
+    font-weight: 400;
+    font-size: 1.05em;
+}
+
+.search-secondary-output {
+    font-weight: 300;
+    font-size: .9em;
+}
+
+.book-details-container {
+    margin: 1em;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.book-details-container>h2 {
+    text-align: left;
 }
 
 .book-card {
+    margin: 0 auto;
+    width: fit-content;
+    width:  90% ;
     display: flex;
     flex-direction: column;
-    color: rgb(288 288 288);
-    background-color: aquamarine;
+    color: rgb(0, 35, 105);
+    background-color: rgb(112 224 255);
     column-gap: 2em;
-}
-
-.book-card>img {
-    width: 450px;
-    padding: 1em;
     border-radius: 1.8em;
 }
 
+
+.book-card>img {
+    width: 100%;
+    border-top-left-radius: 1.8em;
+    border-top-right-radius: 1.8em;
+}
+
 .book-info {
-    padding-left: 2em;
+    margin-left: 2em;
+    
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 1em;
+}
+
+.book-info>h4,p {
+    margin: 0
+}
+
+.borrow-reserve {
+    margin-left: -2em;
+    text-align: center;
+}
+
+.borrow-reserve>button {
+    width: 50%;
+    margin: 3em 0 2em  0;
+    padding: 1em;
+    text-align: center;
+    
+    color: rgb(112 224 255);
+    background: rgb(0, 35, 105);
+    
+    border: none;
+    border-radius: .5em;
+    
+    align-self: center;
+}
+.borrow-reserve>button:hover {
+    color: rgb(228 228 228);
+    background: rgb(0, 15, 44);
+    
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 872px){
+    .book-card {
+        width: fit-content;
+        /* margin-left: 0; */
+        padding-right: 2em;
+        color: rgb(0, 35, 105);
+        background-color: rgb(112 224 255);
+        
+        border-radius: 1.8em;
+        
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 0
+    }
+
+    .book-card>img {
+        width: 450px;
+        border-top-left-radius: 1.8em;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 1.8em;
+    }
+
+    .book-info {
+        /* margin-left: 0; */
+        
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        row-gap: 2em;
+    }
+    
+    .book-info>h4,p {
+        margin: 0
+    }
+    
+    .borrow-reserve {
+        margin-left: 0;
+        text-align: center;
+    }
+    
+    .borrow-reserve>button {
+        width: 50%;
+        margin: 3em 0 2em  0;
+        padding: 1em;
+        text-align: center;
+        
+        color: rgb(112 224 255);
+        background: rgb(0, 35, 105);
+        
+        border: none;
+        border-radius: .5em;
+        
+        align-self: center;
+    }
+    .borrow-reserve>button:hover {
+        color: rgb(228 228 228);
+        background: rgb(0, 15, 44);
+        
+        cursor: pointer;
+    }
+
+}
+
+
+
+
+
+
+.extra-actions {
+    text-align: center;
+}
+
+.extra-actions>button {
+    margin: 4em 2em 2em 2em ;
+    padding: 1em 2em;
+}
+.extra-actions>button:hover {
+    background:rgb(112 224 255);
+    cursor: pointer;
 }
