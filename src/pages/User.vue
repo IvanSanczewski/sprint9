@@ -31,8 +31,11 @@
                 <span class="doc-date doc-borrow"> {{ doc.borrowDate }} </span>
                 <span class="doc-date doc-return"> {{ doc.returnDate }} </span>
                 
-                <!-- TODO: DELETE BOOK FROM DB & CLEAR DOC FROM USER -->
-                <span class="doc-action-return" @click="storeGetBookAvailability.deleteDocFromBorrowedBooks(doc.isbn); storeGetUSer.deleteDocFromUser()"> Return </span>
+                <!-- TODO: CLEAR DOC FROM USER -->
+                <!-- <span class="doc-action-return" @click="storeGetBookAvailability.deleteDocFromBorrowedBooks(doc.isbn)"> Return </span> -->
+                <!-- <span class="doc-action-return" @click="storeGetUser.deleteDocFromUser(doc.isbn, storeGetUser.user)"> Return </span> -->
+                <span class="doc-action-return" 
+                    @click="storeGetBookAvailability.deleteDocFromBorrowedBooks(doc.isbn), storeGetUser.deleteDocFromUser(doc.isbn, storeGetUser.user)"> Return </span>
                 <span class="doc-action-extend"> Extend</span>
             </div>
 
@@ -41,7 +44,7 @@
 
 
         <!-- A D M I N S -->
-        <div v-show="storeGetUser.user.isAdmin">
+        <div class="user-admin" v-show="storeGetUser.user.isAdmin">
         <button @click="storeGetUser.toggleDisplayUsersList">Display Users</button>
             <div v-show="storeGetUser.displayUsersList" class="users-list">
                 <h5>USERS LIST</h5>
@@ -65,10 +68,12 @@
 
 <script setup>
 import { useGetUserStore } from '../stores/getUser'
-import { useGetBookAvailability } from '../stores/getBookAvailability'
+import { useGetBookAvailabilityStore } from '../stores/getBookAvailability'
 
 const storeGetUser = useGetUserStore()
-const storeGetBookAvailability = useGetBookAvailability()
+const storeGetBookAvailability = useGetBookAvailabilityStore()
+
+storeGetBookAvailability.getBorrowedBooks() 
 
 </script>
 

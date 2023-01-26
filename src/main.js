@@ -23,16 +23,10 @@ library.add( fas, fab )
 
 const app = createApp(App)
 
-// CORS
-// const cors = require('cors')
 
 app.use(createPinia())
 app.use(router)
 
-// CORS
-// app.use(cors({
-//     origin: 'http://127.0.0.1:5173/',
-// }))
 
 app.component('font-awesome-icon', FontAwesomeIcon)
     

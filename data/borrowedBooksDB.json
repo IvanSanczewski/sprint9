@@ -1,88 +1,19 @@
 {
   "borrowedBooks": [
     {
-      "id": "1",
-      "title": "In Viaggio con Erodoto",
-      "isbn": "8807819465",
-      "key": "/books/OL37051713M",
-      "available": "false",
-      "borrow": {
-        "userMail": "perico@palote.es",
-        "borrowData": "",
-        "returnData": ""
-      }
-    },
-    {
-      "id": "2",
-      "title": "Walden",
-      "isbn": "9798656553049",
-      "key": "/books/OL42432250M",
-      "available": "false",
-      "borrow": {
-        "user": "22@22.de",
-        "borrowData": "",
-        "returnData": ""
-      }
-    },
-    {
-      "isbn": 9788433902412,
-      "title": "Ebano",
-      "author": "Ryszard Kapuściński",
-      "pages": 352,
-      "language": "spa",
-      "key": "/books/OL29858635M",
+      "isbn": 9781409090366,
+      "title": "Black Snow",
+      "author": "Михаи́л Афана́сьевич Булга́ков",
+      "pages": null,
+      "language": "eng",
+      "key": "/books/OL40383918M",
       "available": false,
       "borrow": {
-        "user": "security@natlib.lt",
-        "borrowDate": "2023-01-24T15:18:14.854Z",
-        "returnDate": "2023-02-21T15:18:14.854Z"
+        "user": "gab@natlib.lt",
+        "borrowDate": "2023-01-26T11:15:26.322Z",
+        "returnDate": "2023-02-23T11:15:26.322Z"
       },
-      "id": "pX5t8Bb"
-    },
-    {
-      "isbn": "8807880458",
-      "title": "È Oriente",
-      "author": "Paolo Rumiz",
-      "pages": 198,
-      "language": "ita",
-      "key": "/books/OL27220787M",
-      "available": false,
-      "borrow": {
-        "user": "security@natlib.lt",
-        "borrowDate": "2023-01-24T15:18:36.168Z",
-        "returnDate": "2023-02-21T15:18:36.168Z"
-      },
-      "id": "7WufShr"
-    },
-    {
-      "isbn": 9788893442862,
-      "title": "La Regina del Silenzio",
-      "author": "Paolo Rumiz",
-      "pages": 214,
-      "language": "ita",
-      "key": "/books/OL44109383M",
-      "available": false,
-      "borrow": {
-        "user": "security@natlib.lt",
-        "borrowDate": "2023-01-24T15:18:51.881Z",
-        "returnDate": "2023-02-21T15:18:51.881Z"
-      },
-      "id": "R-diPw9"
-    },
-    {
-      "isbn": 9788807018206,
-      "title": "La cotogna di Istanbul",
-      "author": "Paolo Rumiz",
-      "pages": 184,
-      "language": "ita",
-      "key": "/books/OL30494265M",
-      "available": false,
-      "borrow": {
-        "user": "22@22.de",
-        "borrowDate": "2023-01-25T10:32:02.927Z",
-        "returnDate": "2023-02-22T10:32:02.927Z"
-      },
-      "id": "6_aI7oX"
+      "id": 5
     }
   ]
 }

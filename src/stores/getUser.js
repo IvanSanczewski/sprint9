@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { projectFirestore } from '../firebase/config'
 // import { projectAuth } from '../firebase/config'
 
+import router from '../router/index'
 
 
 // users endpoints
@@ -225,12 +226,14 @@ export const useGetUserStore = defineStore('getUser', {
             console.log(user, title, author, isbn)
             if (!user.borrow.doc1) {
                 this.borrowDoc1ToUser(user, title, author, isbn)
-
+                console.log('create doc1')
             } else if (user.borrow.doc1 && !user.borrow.doc2) {
                 this.borrowDoc2ToUser(user, title, author, isbn)
-
+                console.log('create doc2')
+                
             } else if (user.borrow.doc1 && user.borrow.doc2 && !user.borrow.doc3) {
                 this.borrowDoc3ToUser(user, title, author, isbn)
+                console.log('create doc3')
 
             } else {
                 alert('You have reached the maximum (3) number of borrowed documents. Please return at least one of them before attempting to borrow or reserve another one.')
@@ -289,8 +292,21 @@ export const useGetUserStore = defineStore('getUser', {
         },
 
         //TODO: DELETE DOC FROM USER
-        async deleteDocFromUser(){
+        async deleteDocFromUser(isbn, user){
+            console.log(isbn)
+            console.log(user.email)
+            let docUser = [this.users.find(item => item.email === user.email)]
+            console.log(docUser)
+            let doc = docUser.borrow.map(item => console.log(item))
+            console.log(doc)
 
+            // FIXME: I CANNOT ITERATE THROUGH USER, THEREFORE I CANNOT DETERMINE WHETHER doc1, doc2 or doc3 HAS TO BE UPDATED
+
+            user.borrow = {...this.user.borrow, doc2}
+            await projectFirestore.collection('users')
+                .doc(user.id)
+                .update({borrow: user.borrow})
+                    
         },
 
         //TODO: EXTRA FEATURES --> EXTEND BORROW & BAN USER
@@ -375,10 +391,7 @@ export const useGetUserStore = defineStore('getUser', {
 
 
 
-
-let borrowDate = new Date
-let initialDate = new Date // this date is used to calculate the 4 weeks borrow period, but when setDate method is applied, it sets the new date also to initialDate, therefore we do not use borrowDate to make the calculation
-let returnDate = new Date(initialDate.setDate(initialDate.getDate() + 28))
+ 
 
 
    // async logInUser(email, password) {

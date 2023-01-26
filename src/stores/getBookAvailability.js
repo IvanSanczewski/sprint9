@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-  
+import router from '../router/index'
 
 const borrowedBooks_db_URL = 'http://localhost:3000/borrowedBooks'
 
-export const useGetBookAvailability = defineStore('getBookAvailability', {
+export const useGetBookAvailabilityStore = defineStore('getBookAvailability', {
     state: () => ({
         borrowedBooks: [],
         newBorrowedBook: {},
@@ -30,6 +30,7 @@ export const useGetBookAvailability = defineStore('getBookAvailability', {
 
         // asign borrowing user to book 
         linkToUser(user, book) {
+            console.log(router)
             book.available = false
             let borrowDate = new Date
             let initialDate = new Date // this date is used to calculate the 4 weeks borrow period, but when setDate method is applied, it sets the new date also to initialDate, therefore we do not use borrowDate to make the calculation
@@ -57,13 +58,19 @@ export const useGetBookAvailability = defineStore('getBookAvailability', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.newBorrowedBook)
             })
+            .then(() => router.push({name: 'User'}))
+            // .then(() => this.router.push('/user'))
+
+
         },
 
-        //TODO: DELETE BOOK FROM DB
         // delete book drom db
         deleteDocFromBorrowedBooks(isbn) {
-
+            let deleteBook = this.borrowedBooks.filter(item => item.isbn === isbn)
+            let deleteBookId = deleteBook[0].id
+        
+            fetch(`${borrowedBooks_db_URL}/${deleteBookId}`, {method: 'DELETE'})
+                .then(() => this.borrowedBooks = this.borrowedBooks.filter(item => item.isbn !== isbn))
         }
-    
     }
 })

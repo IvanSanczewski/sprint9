@@ -66,11 +66,15 @@ import SignIn from './components/SignIn.vue'
 
 
 import { useGetUserStore } from './stores/getUser'
+import { useGetBookAvailabilityStore } from './stores/getBookAvailability'
 
-console.log('login component accessed')
 
 const storeGetUser = useGetUserStore()
+// const storeGetBookAvailability = useGetBookAvailabilityStore()
+
+
 storeGetUser.getRegisteredUsers()
+// storeGetBookAvailability.getBorrowedBooks()
 
 
 </script>

@@ -2,7 +2,8 @@
     <div class="book-details-container">
         <h2>Book Details:</h2>
         <div class="book-card">
-            <img :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
+            <img v-if="storeGetBooks.coverExists" :src="`${storeGetBooks.COVER_URL}${storeGetBooks.editionDetails.isbn}-L.jpg`" />
+            <img v-else src="@/assets/img/NA.png" />
             <div class="book-info">
                 <h3>Title: {{ storeGetBooks.editionDetails.title }}</h3>
                 <h4>Author: {{ storeGetBooks.editionDetails.author }}</h4>
@@ -34,12 +35,12 @@
 <script setup>
 import { useGetBooksStore } from '../stores/getBooks'
 import { useGetUserStore } from '../stores/getUser'
-import { useGetBookAvailability } from '../stores/getBookAvailability'
+import { useGetBookAvailabilityStore } from '../stores/getBookAvailability'
 // import Books from '../pages/Books.vue'
 
 const storeGetBooks = useGetBooksStore()
 const storeGetUser = useGetUserStore()
-const storeGetBookAvailability = useGetBookAvailability()
+const storeGetBookAvailability = useGetBookAvailabilityStore()
 
 console.log('ENTERED BOOKDETAILS COMPONENT')    
 console.log(storeGetBooks.editionDetails.isbn)

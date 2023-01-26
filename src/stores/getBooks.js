@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import router from '../router/index'
 
 // IMPORT & USE OF store/getUsers.js WILL FAIL, THEREFORE I CANNTO USE ITS STATE -> COMMENT GETTER watchUserEmail & IF STATEMENTES & ALERTS IN getBookDetails ACTION
 // import useGetUserStore from '../stores/getUser'
@@ -21,7 +22,6 @@ const ISBN_KEY_URL = 'https://openlibrary.org/isbn/'
 // const EDITION_KEY_URL = 'https://openlibrary.org'
 
 // cover endpoints
-// const COVER_URL = 'https://covers.openlibrary.org/b/isbn/'
 
 
 
@@ -50,13 +50,10 @@ export const useGetBooksStore = defineStore('getBooks', {
             key:'',
             available:''
         },
-        // displayBook: false,
-        
-        //TODO: CHECK UTILITY & DELETE IF IT ISN'T NEEDED
-        lastSearch: null,
-
+    
         // COVER
-        COVER_URL: 'https://covers.openlibrary.org/b/isbn/'
+        COVER_URL: 'https://covers.openlibrary.org/b/isbn/',
+        coverExists: null
     }),
     getters: {
         // authorsMatchEdited: this.authorsMatch.map(item => item.work_count > 0)
@@ -96,7 +93,7 @@ export const useGetBooksStore = defineStore('getBooks', {
         // fetch title data according to user's search
         async getTitle(title) {
             // this.searchItem = 'title'
-            this.search = ''
+            // this.search = ''
             console.log(title);
             try {
                 const titleData = await axios.get(`${TITLE_URL}${title}`)
@@ -195,8 +192,6 @@ export const useGetBooksStore = defineStore('getBooks', {
                         key: bookData.data.entries[0].key,
                     
                         available: true,
-                    
-                        // cover: bookData.data.entries[0].covers,
                     }
                     // } else {// READ >>4
                         // alert('You need to log to check book details')
@@ -231,163 +226,30 @@ export const useGetBooksStore = defineStore('getBooks', {
                     // } else {// READ >>4
                         // alert('You need to log to check book details')
                     // }    
+
+
                 }
                 console.log(this.editionDetails)
             }
             catch(err) {
                 console.log(err)
             }
+
+
+            // check if cover image exists
+            
+
+            
+            const checkImgExists = (`${this.COVER_URL}${this.editionDetails.isbn}-L.jpg`)
+            console.log(checkImgExists)
+            fetch(checkImgExists)
+                .then(response => { 
+                    if (response.status === 200 ) {
+                        this.coverExists = true
+                    } else {
+                        this.coverExists = false
+                    }
+                })
         }
     }
 })
-
-
-
-// this.editionDetails = {
-                //     title: bookData.data.entries[0].title,
-                //     key: bookData.data.entries[0].key,
-
-                //     isbn10: (bookData.data.entries[0].isbn_10 !== null) ? Number(bookData.data.entries[0].isbn_10) : 'N/A',
-                //     isbn13: (bookData.data.entries[0].isbn_13 !== null) ? Number(bookData.data.entries[0].isbn_13) : 'N/A',
-                    
-                //     language: (bookData.data.entries[0].languages !== null) ? bookData.data.entries[0].languages[0].key.slice(11,14) : 'N/A',
-                    
-                //     pages: (bookData.data.entries[0].number_of_pages !== null) ? bookData.data.entries[0].number_of_pages : Number(bookData.data.entries[0].pagination),
-                //     // pages: (bookData.data.entries[0].number_of_pages !== null) ? bookData.data.entries[0].number_of_pages : 'N/A',
-                // }
-
-                // if (this.editionDetails.isbn13.length === 13) {
-                //     console.log('delete does work')
-                //     delete this.editionDetails[isbn10]
-                // }
-                // console.log(this.editionDetails)
-                
-
-                // if (bookData.data.entries[0].isbn_10 !== null) {
-                //     console.log('ISBN 10')
-                //     this.editionDetails = {
-                //         isbn10: bookData.data.entries[0].isbn_10[0],
-                //         title: bookData.data.entries[0].title,
-                //         pages: bookData.data.entries[0].number_of_pages,
-                //         // language: bookData.data.entries[0].languages[0].key.slice(11,14),
-                //         key: bookData.data.entries[0].key,
-                //         // cover: bookData.data.entries[0].covers,
-                //         available: true,
-                //     }
-                // } else if (bookData.data.entries[0].isbn_13 !== null) {
-                //     console.log('ISBN 13')
-                //     this.editionDetails = {
-                //         isbn13: bookData.data.entries[0].isbn_13[0],
-                //         title: bookData.data.entries[0].title,
-                //         pages: bookData.data.entries[0].number_of_pages,
-                //         language: bookData.data.entries[0].languages[0].key.slice(11,14),
-                //         key: bookData.data.entries[0].key,
-                //         // cover: bookData.data.entries[0].covers,
-                //         available: true,
-                //     }
-                // } else {
-                //     console.log('NO ISBN')
-                //     this.editionDetails = {
-                //         title: bookData.data.entries[0].title,
-                //         pages: bookData.data.entries[0].number_of_pages,
-                //         language: bookData.data.entries[0].languages[0].key.slice(11,14),
-                //         key: bookData.data.entries[0].key,
-                //         // cover: bookData.data.entries[0].covers,
-                //         available: true,
-                //     }
-                // }
-
-                // this.bookDetails = bookData.data.entries[0]
-
-                // this.editionDetails = {
-                //     // isbn: Number(bookData.data.entries[0].isbn_10[0]),
-                //     isbn10: bookData.data.entries[0].isbn_10[0],
-                //     isbn13: bookData.data.entries[0].isbn_13[0],
-                //     title: bookData.data.entries[0].title,
-                //     pages: bookData.data.entries[0].number_of_pages,
-                //     language: bookData.data.entries[0].languages[0].key.slice(11,14),
-                //     key: bookData.data.entries[0].key,
-                //     // cover: bookData.data.entries[0].covers,
-                //     available: true,
-                // }
-
-                // this.editionDetails = [
-                //     Number(bookData.data.entries[0].isbn_13[0]),
-                //     bookData.data.entries[0].title,
-                //     bookData.data.entries[0].number_of_pages,
-                //     bookData.data.entries[0].languages[0].key.slice(11,14),
-                //     bookData.data.entries[0].key,
-                //     bookData.data.entries[0].covers
-
-                // ]
-
-                // some books may have several covers given as an array of numbers, if so we take the the first number in the array
-                // if (this.editionDetails.cover !== Number && this.editionDetails.cover !== undefined) {
-                //     console.log('NOT NUMBER!!')
-                //     this.editionDetails.cover = bookData.data.entries[0].covers[0]
-                // } else {
-                //     console.log('IS NUMBER!!')
-                // }
-
-                // some books have no such parameter as 'number_of_pages' (therefore throwing an 'undefined' value), instead they may have the parameter 'pagination', in such case we look for it. Most of these cases are a string, so we convert them into number
-                // if (this.editionDetails.pages === undefined) {
-                //     console.log('UNDEFINED NUMBER OF PAGES --> PAGINATION!!')
-                //     this.editionDetails.pages = Number(bookData.data.entries[0].pagination)
-                // }
-
-
-
-
-
-
-
-
-
-// fetch specific edition's details: cover, pages, language
-        // async getEditionDetails(bookKey) {
-            // console.log('book details')
-            // console.log(bookKey)
-            // try {
-                // const editionData = await axios.get(`${BOOK_KEY_URL}${bookKey}/editions.json`)
-                // OpenLibrary offers several editions of the same work, occasionally even hudreds, therefore we take the first given option (entries[0]) as the unique edition, and offer it to the user
-                // this.editionDetails = {
-                    // isbn: editionData.data.entries[0].isbn_13[0],
-                    // title: editionData.data.entries[0].title,
-                    // pages: editionData.data.entries[0].number_of_pages,
-                    // key: editionData.data.entries[0].key,
-                    // cover: editionData.data.entries[0].covers[0]
-                // }
-                // this.getIsbn(editionData.data.entries[0].isbn_13[0])
-                // console.log(editionData)
-                // console.log(this.editionDetails)
-            // }
-            // catch(err) {
-                // console.log(err)
-            // }
-        // },
-
-        // ISBN
-
-
-        // async getIsbn(isbn) {
-        //     console.log('book details')
-        //     console.log(isbn)
-        //     try {
-        //         const editionFullData = await axios.get(`${ISBN_KEY_URL}${isbn}.json`)
-        //         console.log(editionFullData.data)
-        //         console.log(Number(editionFullData.data.pagination))
-        //         console.log(editionFullData.data.number_of_pages)
-
-        //         // this.editionDetails = {
-        //         //     isbn: editionFullData.data.isbn,
-        //         //     title: editionFullData.data.title,
-        //         //     pages: editionFullData.data.pagination,
-        //         //     key: editionFullData.data.key,
-        //         //     cover: editionFullData.data.covers[0]
-        //         // }
-        //         console.log(this.editionDetails)
-        //     }
-        //     catch(err) {
-        //         console.log(err)
-        //     }
-        // },
