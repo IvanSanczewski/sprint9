@@ -1,7 +1,7 @@
 /* @import './base.css'; */
 @import './header.css';
 @import './books.css';
-@import './footer.css'; 
+@import './footer.css';
 @import './modal.css';
 @import './movies.css';
 @import './user.css';
@@ -17,20 +17,27 @@
 
 #app{
   /* overflow: hidden; */
-  box-sizing: border-box; 
+
+  min-height: 100dvh;
+  
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
+.layout-container {
+  /* box-sizing: border-box; */
 
+}
 
 body {
   margin: 0 auto;
-  
+
   /* box-sizing: content-box; */
-  
+
   font-weight: normal;
-  
+
   color: rgb(228 228 228);
-  background-color: rgb(0, 15, 44); 
+  background-color: rgb(0, 15, 44);
 }
 
 main {
