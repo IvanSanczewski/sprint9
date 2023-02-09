@@ -24,10 +24,9 @@
   grid-template-rows: auto 1fr auto;
 }
 
-.layout-container {
-  /* box-sizing: border-box; */
-
-}
+/* .layout-container {
+ box-sizing: border-box;
+} */
 
 body {
   margin: 0 auto;
@@ -41,7 +40,7 @@ body {
 }
 
 main {
-  max-width: 940px;
+  max-width: 1080px;
   margin: 0 auto;
 }
 
