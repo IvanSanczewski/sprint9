@@ -56,7 +56,9 @@ export const useGetUserStore = defineStore('getUser', {
         exixtingEmailErrMsg: 'This email has already been registered',
 
         passwordErr: false,
+        passwordRegEx: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/,
         passwordErrMsg:'Your password must be 8 to 20 characters and contain at least one lowercase, one uppercase, one number and one special character',
+        
         passwordInputType: 'password'
 
 
@@ -79,14 +81,34 @@ export const useGetUserStore = defineStore('getUser', {
         toggleDisplaySignIn() {
             this.displayLogIn = false
             this.displaySignIn = !this.displaySignIn
+            this.signInUser.firstName = ''
+            this.signInUser.lastName = ''
+            this.signInUser.email = ''
+            this.signInUser.password = ''
+            this.passwordInputType = 'password'
+            this.firstNameErr = false
+            this.lastNameErr = false
+            this.emptyEmailErr = false
+            this.emailErr = false
+            this.exixtingEmailErr = false
+            this.passwordErr = false
+
             console.log('entered SIGNIN component')
         },
         toggleDisplayLogIn() {
-            this.displayLogIn = !this.displayLogIn
             this.displaySignIn = false
+            this.displayLogIn = !this.displayLogIn
+            this.existingEmail = ''
+            this.existingPassword = ''
+            this.passwordInputType = 'password'
+            this.firstNameErr = false
+            this.lastNameErr = false
+            this.emptyEmailErr = false
+            this.emailErr = false
+            this.exixtingEmailErr = false
+            this.passwordErr = false
 
             console.log('entered LOGIN component')
-
         },
         toggleDisplayUsersList() {
             this.displayUsersList = !this.displayUsersList
@@ -145,6 +167,8 @@ export const useGetUserStore = defineStore('getUser', {
 
             // password validation
             if (this.signInUser.password.trim() === '' || this.signInUser.password.trim() === null) {
+                this.passwordErr = true
+            } else if (!this.passwordRegEx.test(this.signInUser.password.trim())) {
                 this.passwordErr = true
             } else {
                 // this.user.password = this.signInUser.password.trim()

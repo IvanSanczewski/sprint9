@@ -86,8 +86,6 @@ header {
         margin: 0 auto;
 
         font-size: large;
-
-        /* border-bottom: 1px solid rgb(112 224 255); */
         
         display: flex;
         justify-content: center;
