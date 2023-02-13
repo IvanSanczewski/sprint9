@@ -2,7 +2,7 @@
   <div class="footer-container">
     <div class="footer-content">
       <a href="#">The Archive</a>
-      <a href="#">Library Rules</a>
+      <a href="#" @click="storeRules.toggleDisplayRules">Library Rules</a>
       <a href="#">Donate documents</a>
       <a href="#">Education</a>
       <a href="#">Work oportunities</a>
@@ -17,10 +17,15 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'Footer '
-  }
+<script setup>
+import { useRulesStore } from '../stores/rules'
+// import Rules from "../components/Rules.vue"
+
+const storeRules = useRulesStore()
+
+name: 'Footer '
+  // export default {
+  // }
 </script>
 
 <style>

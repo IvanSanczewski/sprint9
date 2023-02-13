@@ -10,10 +10,10 @@
 </template>
 
 <script setup>
-import { useRulesStore } from "../stores/rules";
-import Rules from "../components/Rules.vue";
+import { useRulesStore } from "../stores/rules"
+import Rules from "../components/Rules.vue"
 
-const storeRules = useRulesStore();
+const storeRules = useRulesStore()
 </script>
 
 <style>

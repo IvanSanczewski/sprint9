@@ -1,5 +1,5 @@
 <template>
-    <div class="backdrop">
+    <div class="backdrop" @click.self="storeRules.toggleDisplayRules">
         <div class="modal-rules">
             <p class="close" @click="storeRules.toggleDisplayRules" style="cursor: pointer">
                 <font-awesome-icon icon="xmark" />
