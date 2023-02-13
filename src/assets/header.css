@@ -61,7 +61,7 @@ header {
 }
 
 .navbar-container {
-    height: 4em;
+    height: 3em;
 
     display: flex;
     justify-content: center;
@@ -69,6 +69,43 @@ header {
     column-gap: 3em;
 }
 
+.navbar-container-desk {
+    display: none;
+}
+
+
+@media screen and (min-width: 872px){
+    .navbar-container {
+        display: none;
+    }
+
+    .navbar-container-desk {
+        height: 3em;
+        max-width: 1080px;
+        
+        margin: 0 auto;
+
+        font-size: large;
+
+        /* border-bottom: 1px solid rgb(112 224 255); */
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 2em;
+    }
+    
+    .navbar-container-desk>a {
+        padding: 0.4em 1.2em;
+
+    }
+    .navbar-container-desk>a:hover {
+        color: rgb(0 35 105);
+        background-color: rgb(112 224 255);
+
+        border-radius: .3em;
+    }
+}
 
 /* I C O N S */
 /* U S E R */
