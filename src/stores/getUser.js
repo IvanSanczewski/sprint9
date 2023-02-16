@@ -14,6 +14,7 @@ export const useGetUserStore = defineStore('getUser', {
         displaySignIn: false,
         displayLogIn: false,
         displayUsersList: false,
+        displayUserPanel: false,
         // isLogged: false, // PASSED AS A GETTER
 
         //user
@@ -31,6 +32,10 @@ export const useGetUserStore = defineStore('getUser', {
             lastName: '',
             email: '',
             password: '',
+        },
+        userUpdate: {
+            firstName: '',
+            lastName: ''
         },
 
         // LogIn checks
@@ -113,6 +118,13 @@ export const useGetUserStore = defineStore('getUser', {
         toggleDisplayUsersList() {
             this.displayUsersList = !this.displayUsersList
         },
+        togglePasswordInputType() {
+            (this.passwordInputType === 'password')? this.passwordInputType = 'text' : this.passwordInputType = 'password'
+        },
+        toggleDisplayUserPanel() {
+            this.displayUserPanel = !this.displayUserPanel
+            console.log('toggle user panel');
+        },
         logOutUser() {
             this.user.firstName = ''
             this.user.lastName = ''
@@ -123,9 +135,6 @@ export const useGetUserStore = defineStore('getUser', {
             this.existingPassword = ''
             this.displayLogIn = false
             //TODO: PUSH ROUTE HOME
-        },
-        togglePasswordInputType() {
-            (this.passwordInputType === 'password')? this.passwordInputType = 'text' : this.passwordInputType = 'password'
         },
 
         // C R U D  (create)
@@ -241,6 +250,14 @@ export const useGetUserStore = defineStore('getUser', {
 
         // C R U D  (update)
         // update user to be admins is a feature available only to admins (this way staff can make new staff an admin)
+        
+        //TODO: MAKE IT ASYNC FOR THE BACKEND
+        updateUserData() {
+            this.user.firstName =  this.userUpdate.firstName
+            this.user.lastName =  this.userUpdate.lastName
+        },
+        
+        
         async makeAdmin(userId) {
             await projectFirestore.collection('users').doc(userId).update({isAdmin: true})
             this.getRegisteredUsers()            
@@ -382,51 +399,11 @@ export const useGetUserStore = defineStore('getUser', {
                     alert('This user does not exists. Please sign in first.')
                 }
             }
-        }
+        },
+
     }
 })
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-   // async logInUser(email, password) {
-        //     console.log(email, password)
-        //     // MAKE ERROR NULL IF NEEDED
-        //     try {
-        //         await projectAuth.signInWithEmailAndPassword(email, password)
-        //         // MAKE ERROR NULL IF NEEDED
-        //         // console.log(actualUser)
-        //         return actualUser
-        //     } catch (err) {
-        //         console.log('user and password combination is wrong');
-        //     }
-        // },

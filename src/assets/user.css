@@ -41,6 +41,24 @@
     cursor: pointer;
 }
 
+.user-details-container>form {
+    display: flex;
+    flex-flow: column nowrap;
+
+    color: red
+}
+
+/* .user-details-container>form>div {
+    display: block;
+} */
+
+.user-details-container>form>div> {
+    display: inline-block;
+}
+.user-details-container>form>div>p {
+    display: inline-block;
+}
+
 .user-docs> h3 {
     margin-bottom: 2.5em;
     text-align: center;

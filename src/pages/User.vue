@@ -9,10 +9,11 @@
         </div>
         
         <div class="user-panel">
-            <button class="user-panel-btn-edit">Edit account</button>
-            <button class="user-panel-btn-delete">Delete account</button>
+            <button class="user-panel-btn-edit" @click="storeGetUser.toggleDisplayUserPanel">Edit account</button>
+            <button class="user-panel-btn-delete" @click="storeGetUser.deleteUser(storeGetUser.user)">Delete account</button>
         </div>
-
+        <UserDetails 
+            v-if="storeGetUser.displayUserPanel"/>
 
         <!-- D O C S -->
         <div class="user-docs">
@@ -41,8 +42,6 @@
 
         </div>
 
-
-
         <!-- A D M I N S -->
         <div class="user-admin" v-show="storeGetUser.user.isAdmin">
         <button @click="storeGetUser.toggleDisplayUsersList">Display Users</button>
@@ -69,6 +68,7 @@
 <script setup>
 import { useGetUserStore } from '../stores/getUser'
 import { useGetBookAvailabilityStore } from '../stores/getBookAvailability'
+import UserDetails from '../components/userDetails.vue'
 
 const storeGetUser = useGetUserStore()
 const storeGetBookAvailability = useGetBookAvailabilityStore()
